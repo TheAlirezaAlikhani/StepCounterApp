@@ -2,6 +2,7 @@ import React from 'react';
 import { Text, View } from 'react-native';
 
 import { EditScreenInfo } from './EditScreenInfo';
+import { StepCounter } from './StepCounter';
 
 type ScreenContentProps = {
   title: string;
@@ -14,6 +15,7 @@ export const ScreenContent = ({ title, path, children }: ScreenContentProps) => 
     <View className={styles.container}>
       <Text className={styles.title}>{title}</Text>
       <View className={styles.separator} />
+      <StepCounter className="mb-6" />
       <EditScreenInfo path={path} />
       {children}
     </View>

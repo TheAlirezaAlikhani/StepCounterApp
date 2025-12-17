@@ -11,6 +11,9 @@ importers:
       expo:
         specifier: ^54.0.0
         version: 54.0.29(@babel/core@7.28.5)(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0)
+      expo-sensors:
+        specifier: ~15.0.8
+        version: 15.0.8(expo@54.0.29(@babel/core@7.28.5)(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0))
       expo-status-bar:
         specifier: ~3.0.8
         version: 3.0.9(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0)
@@ -1869,6 +1872,12 @@ packages:
     resolution: {integrity: sha512-LzipcjGqk8gvkrOUf7O2mejNWugPkf3lmd9GkqL9WuNyeN2fRwU0Dn77e3ZUKI3k6sI+DNwjkq4Nu9fNN9WS7Q==}
     peerDependencies:
       react: '*'
+      react-native: '*'
+
+  expo-sensors@15.0.8:
+    resolution: {integrity: sha512-ttibOSCYjFAMIfjV+vVukO1v7GKlbcPRfxcRqbTaSMGneewDwVSXbGFImY530fj1BR3mWq4n9jHnuDp8tAEY9g==}
+    peerDependencies:
+      expo: '*'
       react-native: '*'
 
   expo-server@1.0.5:
@@ -6255,6 +6264,12 @@ snapshots:
     dependencies:
       invariant: 2.2.4
       react: 19.1.0
+      react-native: 0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0)
+
+  expo-sensors@15.0.8(expo@54.0.29(@babel/core@7.28.5)(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0)):
+    dependencies:
+      expo: 54.0.29(@babel/core@7.28.5)(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0)
+      invariant: 2.2.4
       react-native: 0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0)
 
   expo-server@1.0.5: {}
