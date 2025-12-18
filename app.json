@@ -10,6 +10,7 @@
       "tsconfigPaths": true
     },
     "plugins": [
+      "expo-dev-client",
       [
         "expo-sensors",
         {
@@ -37,6 +38,11 @@
         "backgroundColor": "#ffffff"
       },
       "package": "com.alireza3296.myexpoapp"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "84870273-97fc-4ecf-b369-a414226272e2"
+      }
     }
   }
 }
