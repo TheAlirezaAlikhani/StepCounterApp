@@ -1,3 +1,10 @@
+// Polyfill for toReversed method (Node.js 18 compatibility)
+if (!Array.prototype.toReversed) {
+  Array.prototype.toReversed = function() {
+    return [...this].reverse();
+  };
+}
+
 const { getDefaultConfig } = require('expo/metro-config');
 const { withNativeWind } = require('nativewind/metro');
 
