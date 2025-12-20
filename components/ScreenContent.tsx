@@ -15,7 +15,7 @@ export const ScreenContent = ({ title, path, children }: ScreenContentProps) => 
     <View className={styles.container}>
       <Text className={styles.title}>{title}</Text>
       <View className={styles.separator} />
-      <StepCounter className="mb-6" />
+      {/* <StepCounter className="mb-6" /> */}
       <EditScreenInfo path={path} />
       {children}
     </View>

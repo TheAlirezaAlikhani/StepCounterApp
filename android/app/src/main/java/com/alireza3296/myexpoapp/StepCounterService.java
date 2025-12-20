@@ -6,6 +6,7 @@ import android.app.NotificationManager;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -21,10 +22,13 @@ public class StepCounterService extends Service implements SensorEventListener {
 
     private static final String TAG = "StepCounterService";
     private static final String CHANNEL_ID = "STEP_COUNTER_CHANNEL";
+    private static final String PREFS_NAME = "StepCounterPrefs";
+    private static final String STEP_COUNT_KEY = "stepCount";
 
     private SensorManager sensorManager;
     private Sensor accelerometer;
     private PowerManager.WakeLock wakeLock;
+    private SharedPreferences sharedPreferences;
 
     private int stepCount = 0;
     private float lastMagnitude = 0f;
@@ -38,6 +42,11 @@ public class StepCounterService extends Service implements SensorEventListener {
     public void onCreate() {
         super.onCreate();
         Log.v(TAG, "Service created");
+
+        // Initialize SharedPreferences
+        sharedPreferences = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        stepCount = sharedPreferences.getInt(STEP_COUNT_KEY, 0);
+        Log.v(TAG, "Loaded step count from prefs: " + stepCount);
 
         createNotificationChannel();
 
@@ -108,6 +117,9 @@ public class StepCounterService extends Service implements SensorEventListener {
 
             stepCount++;
             lastStepTime = now;
+
+            // Save step count to SharedPreferences
+            sharedPreferences.edit().putInt(STEP_COUNT_KEY, stepCount).apply();
 
             Log.v(TAG, "STEP DETECTED: " + stepCount);
         }
