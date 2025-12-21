@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, View } from 'react-native';
 
 import { EditScreenInfo } from './EditScreenInfo';
-import { StepCounter } from './StepCounter';
+import { StepCounter } from './OldStepCounter';
 
 type ScreenContentProps = {
   title: string;
