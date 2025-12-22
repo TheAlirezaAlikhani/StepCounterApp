@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Button, View, NativeModules, Text, Alert } from 'react-native';
+import { Pressable, View, NativeModules, Text, Alert } from 'react-native';
 
 // 🔹 Get native module
 const { StepCounter: StepCounterModule } = NativeModules;
@@ -70,71 +70,64 @@ export const StepCounter: React.FC = () => {
   };
 
   return (
-    <View style={{ flex: 1 }}>
+    <View className="bg-gray-100 dark:bg-zinc-800/50 rounded-2xl p-6">
       {/* Step Counter Display */}
-      <View style={{ alignItems: 'center', marginVertical: 40, paddingHorizontal: 20 }}>
-        <Text style={{ fontSize: 24, fontWeight: 'bold', marginBottom: 10 }}>
-          Step Counter
+      <View className="items-center mb-6">
+        <Text className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+          شمارنده قدم
         </Text>
 
-        <View style={{
-          backgroundColor: '#3B82F6',
-          borderRadius: 75,
-          width: 150,
-          height: 150,
-          alignItems: 'center',
-          justifyContent: 'center',
-          marginBottom: 20
-        }}>
-          <Text style={{ fontSize: 48, fontWeight: 'bold', color: 'white' }}>
-            {stepCount}
+        <View className="bg-blue-500 rounded-full w-32 h-32 items-center justify-center mb-4">
+          <Text className="text-4xl font-bold text-white">
+            {stepCount.toLocaleString('fa-IR')}
           </Text>
-          <Text style={{ fontSize: 16, color: '#DBEAFE' }}>
-            steps
+          <Text className="text-base text-blue-100">
+            قدم
           </Text>
         </View>
 
-        <Text style={{ fontSize: 14, color: isServiceRunning ? '#10B981' : '#6B7280', marginBottom: 20 }}>
-          Service: {isServiceRunning ? 'Running' : 'Stopped'}
+        <Text className={`text-sm mb-4 ${isServiceRunning ? 'text-green-600' : 'text-gray-500 dark:text-gray-400'}`}>
+          سرویس: {isServiceRunning ? 'در حال اجرا' : 'متوقف شده'}
         </Text>
       </View>
 
-      <View style={{ paddingHorizontal: 20 }}>
+      {/* Buttons */}
+      <View className="gap-3">
         {!isServiceRunning ? (
-          <Button
-            title="Start Background Step Service"
+          <Pressable
+            className="bg-green-500 py-3 px-4 rounded-lg items-center active:bg-green-600"
             onPress={startService}
-            color="#10B981"
-          />
+          >
+            <Text className="text-white font-semibold text-base">شروع سرویس پس‌زمینه شمارنده قدم</Text>
+          </Pressable>
         ) : (
-          <Button
-            title="Stop Background Step Service"
+          <Pressable
+            className="bg-red-500 py-3 px-4 rounded-lg items-center active:bg-red-600"
             onPress={stopService}
-            color="#EF4444"
-          />
+          >
+            <Text className="text-white font-semibold text-base">توقف سرویس پس‌زمینه شمارنده قدم</Text>
+          </Pressable>
         )}
 
-        <View style={{ height: 20 }} />
-
-        <Button
-          title="Reset Step Count"
+        <Pressable
+          className="bg-gray-500 py-3 px-4 rounded-lg items-center active:bg-gray-600"
           onPress={resetStepCount}
-          color="#6B7280"
-        />
+        >
+          <Text className="text-white font-semibold text-base">بازنشانی شمارنده قدم</Text>
+        </Pressable>
 
-        <View style={{ height: 20 }} />
-
-        <Button
-          title="Refresh Step Count"
+        <Pressable
+          className="bg-blue-500 py-3 px-4 rounded-lg items-center active:bg-blue-600"
           onPress={fetchStepCount}
-          color="#3B82F6"
-        />
+        >
+          <Text className="text-white font-semibold text-base">به‌روزرسانی شمارنده قدم</Text>
+        </Pressable>
       </View>
 
-      <View style={{ paddingHorizontal: 20, marginTop: 20 }}>
-        <Text style={{ fontSize: 12, color: '#6B7280', textAlign: 'center' }}>
-          Place your phone in your pocket or hold it while walking.{'\n'}
-          The step counter runs in the background even when the screen is off.
+      <View className="mt-4">
+        <Text className="text-xs text-gray-500 dark:text-gray-400 text-center leading-5">
+          تلفن خود را در جیب قرار دهید یا هنگام راه رفتن در دست نگه دارید.{'\n'}
+          شمارنده قدم حتی وقتی صفحه نمایش خاموش است در پس‌زمینه اجرا می‌شود.
         </Text>
       </View>
     </View>
