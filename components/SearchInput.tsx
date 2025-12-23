@@ -19,9 +19,9 @@ export function SearchInput({
   const { theme } = useTheme();
 
   return (
-    <View className={`relative mb-5 ${className || ''}`}>
+    <View className={` ps-14 pe-3 flex flex-row-reverse items-center justify-between w-full rounded-full border-0 bg-gray-100 dark:bg-zinc-800 py-3  text-md text-gray-800 dark:text-gray-200 focus:ring-2 focus:ring-primary mb-5 ${className || ''}`}>
       <TextInput
-        className="w-full rounded-full border-0 bg-gray-100 dark:bg-zinc-800 py-5 pr-6 pl-20 text-md text-gray-800 dark:text-gray-200 focus:ring-2 focus:ring-primary"
+        className="w-full  flex rounded-full bg-gray-100 dark:bg-zinc-800  text-md text-gray-800 dark:text-gray-200 "
         placeholder={placeholder}
         placeholderTextColor={theme === 'dark' ? '#6b7280' : '#9ca3af'}
         value={value}
@@ -31,7 +31,7 @@ export function SearchInput({
           writingDirection: 'rtl',
         }}
       />
-      <View className="absolute top-1/2 left-6 -translate-y-1/2">
+      <View className="flex items-center justify-center">
         <Ionicons
           name="search"
           size={28}

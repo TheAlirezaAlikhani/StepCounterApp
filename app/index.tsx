@@ -86,7 +86,7 @@ export default function HomeScreen() {
 
           {/* Search */}
           <SearchInput />
-÷
+
           {/* Step Counter */}
           <View className="pb-10 pt-2">
             <StepCounter />

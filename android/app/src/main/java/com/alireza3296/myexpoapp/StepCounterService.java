@@ -69,7 +69,7 @@ public class StepCounterService extends Service implements SensorEventListener {
 
     // Timing
     private static final long IDLE_RESET_TIMEOUT = 5000; // 5 seconds before reset (increased for robustness)
-    private static final long STOP_WALKING_TIMEOUT = 2500; // 4 seconds without steps = stopped walking
+    private static final long STOP_WALKING_TIMEOUT = 2000; // 4 seconds without steps = stopped walking
     private Handler idleHandler;
     private Runnable idleRunnable;
 
@@ -230,7 +230,7 @@ public class StepCounterService extends Service implements SensorEventListener {
                         if (cadenceOk && axisOk && energyOk) {
                             // Qualification passed! Start counting
                             mqpState = MQPState.COUNTING;
-                            stepCount = qualTimestamps.size(); // Start with qualified steps
+                            stepCount = qualTimestamps.size()+stepCount; // Start with qualified steps
                             lastCountedStepTime = now; // Initialize stop-walking timer
                             prefs.edit().putInt(STEP_COUNT_KEY, stepCount).apply();
 

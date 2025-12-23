@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "my-expo-app",
-    "slug": "my-expo-app",
-    "scheme": "my-expo-app",
+    "name": "Let's Fit",
+    "slug": "Let's Fit",
+    "scheme": "Let's Fit",
     "version": "1.0.0",
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/logo/Logo432Black.png"
     },
     "experiments": {
       "tsconfigPaths": true
@@ -20,7 +20,7 @@
       ]
     ],
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/logo/Logo512Black.png",
     "userInterfaceStyle": "automatic",
     "splash": {
       "image": "./assets/splash.png",
@@ -35,7 +35,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/logo/Logo432Black.png",
         "backgroundColor": "#ffffff"
       },
       "package": "com.alireza3296.myexpoapp"
