@@ -19,7 +19,7 @@ export function SearchInput({
   const { theme } = useTheme();
 
   return (
-    <View className={`relative mb-3 ${className || ''}`}>
+    <View className={`relative mb-5 ${className || ''}`}>
       <TextInput
         className="w-full rounded-full border-0 bg-gray-100 dark:bg-zinc-800 py-5 pr-6 pl-20 text-md text-gray-800 dark:text-gray-200 focus:ring-2 focus:ring-primary"
         placeholder={placeholder}
