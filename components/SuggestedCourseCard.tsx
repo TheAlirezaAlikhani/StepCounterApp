@@ -1,7 +1,6 @@
 import React from 'react';
 import { View, Text, Pressable, Image } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { LinearGradient } from 'expo-linear-gradient';
 
 interface SuggestedCourseCardProps {
   id: number;
@@ -31,10 +30,7 @@ export function SuggestedCourseCard({
           resizeMode="cover"
           onError={() => console.log('Image failed to load:', image)}
         />
-        <LinearGradient
-          colors={['transparent', 'rgba(0,0,0,0.6)']}
-          className="absolute inset-0"
-        />
+        <View className="absolute inset-0 bg-black/50" />
         <View className="absolute bottom-0 p-4">
           <Text className="text-base font-semibold text-white mb-1" numberOfLines={2}>
             {title}

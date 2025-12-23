@@ -1,12 +1,49 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Pressable, View, NativeModules, Text, Alert } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 
 // 🔹 Get native module
 const { StepCounter: StepCounterModule } = NativeModules;
 
+// Constants from Next.js version
+const STEP_GOAL = 8000;
+const CALORIE_GOAL = 320;
+const STRIDE_METERS = 0.75; // متوسط طول گام (متر)
+const WEIGHT_KG = 70; // وزن مفروض برای محاسبه کالری
+const KCAL_PER_KG_PER_KM = 0.57; // هزینه انرژی پیاده‌روی در هر کیلومتر به ازای هر کیلوگرم
+
 export const StepCounter: React.FC = () => {
   const [stepCount, setStepCount] = useState(0);
   const [isServiceRunning, setIsServiceRunning] = useState(false);
+
+  // Calculations matching Next.js version
+  const distanceKm = useMemo(
+    () => Math.max(0, +(stepCount * (STRIDE_METERS / 1000)).toFixed(2)),
+    [stepCount],
+  );
+
+  const calories = useMemo(
+    () =>
+      Math.max(
+        0,
+        +(
+          distanceKm *
+          WEIGHT_KG *
+          KCAL_PER_KG_PER_KM
+        ).toFixed(1),
+      ),
+    [distanceKm],
+  );
+
+  const stepProgress = useMemo(
+    () => Math.min(100, Math.round((stepCount / STEP_GOAL) * 100)),
+    [stepCount],
+  );
+
+  const calorieProgress = useMemo(
+    () => Math.min(100, Math.round((calories / CALORIE_GOAL) * 100)),
+    [calories],
+  );
 
   // Fetch step count periodically when service is running
   useEffect(() => {
@@ -70,28 +107,80 @@ export const StepCounter: React.FC = () => {
   };
 
   return (
-    <View className="bg-gray-100 dark:bg-zinc-800/50 rounded-2xl p-6">
-      {/* Step Counter Display */}
-      <View className="items-center mb-6">
-        <Text className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-          شمارنده قدم
-        </Text>
-
-        <View className="bg-blue-500 rounded-full w-32 h-32 items-center justify-center mb-4">
-          <Text className="text-4xl font-bold text-white">
-            {stepCount.toLocaleString('fa-IR')}
-          </Text>
-          <Text className="text-base text-blue-100">
-            قدم
-          </Text>
+    <View className="relative">
+      {/* Grid Layout - 2 columns */}
+      <View className="flex-row gap-3 mb-5">
+        {/* Steps Card */}
+        <View className="flex-1 relative overflow-hidden rounded-3xl bg-white dark:bg-zinc-800 p-4 shadow-lg">
+          <View className="absolute inset-y-0 right-0 w-1 bg-primary" />
+          <View className="flex-row items-start justify-between">
+            <View className="h-9 w-9 items-center justify-center rounded-xl bg-primary/10">
+              <Ionicons name="footsteps" size={20} color="#8B5CF6" />
+            </View>
+            <View className="rounded-full bg-primary/10 px-2 py-0.5">
+              <Text className="text-xs font-bold text-primary">
+                {stepProgress}%
+              </Text>
+            </View>
+          </View>
+          <View className="mt-2 space-y-1">
+            <Text className="text-3xl font-black text-gray-900 dark:text-white leading-tight flex-row items-center">
+              <Text>{stepCount.toLocaleString("fa-IR")}</Text>
+              <Text className="text-xs font-semibold text-gray-500 dark:text-gray-400 mr-1">
+                / {STEP_GOAL.toLocaleString("fa-IR")}
+              </Text>
+            </Text>
+            <Text className="text-xs font-medium text-gray-400">قدم‌های امروز</Text>
+          </View>
+          <View className="mt-3 h-2 w-full overflow-hidden rounded-full bg-gray-100 dark:bg-zinc-700">
+            <View
+              className="h-full rounded-full bg-primary"
+              style={{ width: `${stepProgress}%` }}
+            />
+          </View>
         </View>
 
-        <Text className={`text-sm mb-4 ${isServiceRunning ? 'text-green-600' : 'text-gray-500 dark:text-gray-400'}`}>
+        {/* Calories Card */}
+        <View className="flex-1 relative overflow-hidden rounded-3xl bg-white dark:bg-zinc-800 p-4 shadow-lg">
+          <View className="absolute inset-y-0 right-0 w-1 bg-orange-500" />
+          <View className="flex-row items-start justify-between">
+            <View className="h-9 w-9 items-center justify-center rounded-xl bg-orange-50 dark:bg-orange-900/20">
+              <Ionicons name="flame" size={20} color="#EA580C" />
+            </View>
+            <View className="rounded-full bg-orange-50 dark:bg-orange-900/30 px-2 py-0.5">
+              <Text className="text-xs font-bold text-orange-600 dark:text-orange-400">
+                {calorieProgress}%
+              </Text>
+            </View>
+          </View>
+          <View className="mt-2 space-y-1">
+            <Text className="text-3xl font-black text-gray-900 dark:text-white leading-tight flex-row items-center">
+              <Text>{calories.toLocaleString("fa-IR")}</Text>
+              <Text className="text-xs font-semibold text-gray-500 dark:text-gray-400 mr-1">
+                / {CALORIE_GOAL.toLocaleString("fa-IR")}
+              </Text>
+            </Text>
+            <Text className="text-xs font-medium text-gray-400">کالری سوزانده شده (kcal)</Text>
+          </View>
+          <View className="mt-3 h-2 w-full overflow-hidden rounded-full bg-gray-100 dark:bg-zinc-700">
+            <View
+              className="h-full rounded-full bg-orange-500"
+              style={{ width: `${calorieProgress}%` }}
+            />
+          </View>
+        </View>
+      </View>
+
+     
+
+      {/* Service Status */}
+      <View className="mb-4 items-center">
+        <Text className={`text-sm ${isServiceRunning ? 'text-green-600' : 'text-gray-500 dark:text-gray-400'}`}>
           سرویس: {isServiceRunning ? 'در حال اجرا' : 'متوقف شده'}
         </Text>
       </View>
 
-      {/* Buttons */}
+      {/* Control Buttons */}
       <View className="gap-3">
         {!isServiceRunning ? (
           <Pressable
@@ -122,13 +211,6 @@ export const StepCounter: React.FC = () => {
         >
           <Text className="text-white font-semibold text-base">به‌روزرسانی شمارنده قدم</Text>
         </Pressable>
-      </View>
-
-      <View className="mt-4">
-        <Text className="text-xs text-gray-500 dark:text-gray-400 text-center leading-5">
-          تلفن خود را در جیب قرار دهید یا هنگام راه رفتن در دست نگه دارید.{'\n'}
-          شمارنده قدم حتی وقتی صفحه نمایش خاموش است در پس‌زمینه اجرا می‌شود.
-        </Text>
       </View>
     </View>
   );
