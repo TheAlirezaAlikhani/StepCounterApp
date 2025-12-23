@@ -107,7 +107,7 @@ export const StepCounter: React.FC = () => {
   };
 
   return (
-    <View className="relative">
+    <View className="relative mb-5">
       {/* Grid Layout - 2 columns */}
       <View className="flex-row gap-3 mb-5">
         {/* Steps Card */}
@@ -119,7 +119,7 @@ export const StepCounter: React.FC = () => {
             </View>
             <View className="rounded-full bg-primary/10 px-2 py-0.5">
               <Text className="text-xs font-bold text-primary">
-                {stepProgress}%
+                {stepProgress.toLocaleString("fa-IR")}%
               </Text>
             </View>
           </View>
@@ -149,7 +149,7 @@ export const StepCounter: React.FC = () => {
             </View>
             <View className="rounded-full bg-orange-50 dark:bg-orange-900/30 px-2 py-0.5">
               <Text className="text-xs font-bold text-orange-600 dark:text-orange-400">
-                {calorieProgress}%
+                {calorieProgress.toLocaleString("fa-IR")}%
               </Text>
             </View>
           </View>
@@ -198,7 +198,7 @@ export const StepCounter: React.FC = () => {
           </Pressable>
         )}
 
-        <Pressable
+        {/* <Pressable
           className="bg-gray-500 py-3 px-4 rounded-lg items-center active:bg-gray-600"
           onPress={resetStepCount}
         >
@@ -210,7 +210,7 @@ export const StepCounter: React.FC = () => {
           onPress={fetchStepCount}
         >
           <Text className="text-white font-semibold text-base">به‌روزرسانی شمارنده قدم</Text>
-        </Pressable>
+        </Pressable> */}
       </View>
     </View>
   );

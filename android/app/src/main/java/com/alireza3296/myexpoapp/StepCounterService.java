@@ -57,7 +57,7 @@ public class StepCounterService extends Service implements SensorEventListener {
     private final List<Long> qualTimestamps = new ArrayList<>();
     private final List<Float> qualMagnitudes = new ArrayList<>();
     private final List<Integer> qualDominantAxes = new ArrayList<>();
-    private static final long QUALIFICATION_DURATION_MS = 4000; // 3.5 seconds for faster qualification
+    private static final long QUALIFICATION_DURATION_MS = 3000; // 3.5 seconds for faster qualification
     private static final int MIN_QUALIFYING_PEAKS = 4; // At least 4 peaks for walking
     private static final float CADENCE_VARIANCE_THRESHOLD = 0.50f; // ±50% variance allowed for walking
     private static final float AXIS_CONSISTENCY_THRESHOLD = 0.6f; // 60% same axis for walking
@@ -69,7 +69,7 @@ public class StepCounterService extends Service implements SensorEventListener {
 
     // Timing
     private static final long IDLE_RESET_TIMEOUT = 5000; // 5 seconds before reset (increased for robustness)
-    private static final long STOP_WALKING_TIMEOUT = 4000; // 4 seconds without steps = stopped walking
+    private static final long STOP_WALKING_TIMEOUT = 2500; // 4 seconds without steps = stopped walking
     private Handler idleHandler;
     private Runnable idleRunnable;
 
@@ -251,11 +251,12 @@ public class StepCounterService extends Service implements SensorEventListener {
                             Log.d(TAG, "MQP: QUALIFYING → IDLE (failed validation)");
                         }
                     }
-                } else if ((now - qualificationStartTime) >= QUALIFICATION_DURATION_MS) {
+                } else if ((now - qualificationStartTime) >= QUALIFICATION_DURATION_MS+1000) {
                     // Timeout without enough peaks
                     mqpState = MQPState.IDLE;
                     updateNotification();
-                    Log.d(TAG, "MQP: QUALIFYING → IDLE (timeout)");
+                    Log.d(TAG, "MQP: QUALIFYING → IDLE (timeout)" + peakCandidate + " " + (now - lastStepTime) + " >= " + minStepInterval + (qualTimestamps.size() >= MIN_QUALIFYING_PEAKS &&
+                    (now - qualificationStartTime) >= QUALIFICATION_DURATION_MS) + "*********"+ qualTimestamps.size() + " >= " + MIN_QUALIFYING_PEAKS +"&&" + (now - qualificationStartTime) + " >= " + QUALIFICATION_DURATION_MS);
                 }
                 break;
 
