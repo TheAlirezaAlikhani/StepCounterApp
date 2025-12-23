@@ -11,7 +11,7 @@ import { UserHeader } from '../components/UserHeader';
 import { useTheme } from '../hooks/theme-context';
 // Ensure RTL is enabled
 if (!I18nManager.isRTL) {
-  I18nManager.forceRTL(false);
+  I18nManager.forceRTL(true);
 }
 
 export default function HomeScreen() {
