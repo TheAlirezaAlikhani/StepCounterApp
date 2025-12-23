@@ -11,7 +11,7 @@ import { UserHeader } from '../components/UserHeader';
 import { useTheme } from '../hooks/theme-context';
 // Ensure RTL is enabled
 if (!I18nManager.isRTL) {
-  I18nManager.forceRTL(true);
+  I18nManager.forceRTL(false);
 }
 
 export default function HomeScreen() {
@@ -75,7 +75,7 @@ export default function HomeScreen() {
 
   return (
     <ScrollView
-      className="flex-1"
+      className="flex-1 "
       showsVerticalScrollIndicator={false}
       contentContainerStyle={{ paddingBottom: 100 }}
       style={{ backgroundColor: theme === 'dark' ? '#18181B' : '#F8FAFC' }}

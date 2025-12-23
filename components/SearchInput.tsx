@@ -19,9 +19,9 @@ export function SearchInput({
   const { theme } = useTheme();
 
   return (
-    <View className={` ps-14 pe-3 flex flex-row-reverse items-center justify-between w-full rounded-full border-0 bg-gray-100 dark:bg-zinc-800 py-3  text-md text-gray-800 dark:text-gray-200 focus:ring-2 focus:ring-primary mb-5 ${className || ''}`}>
+    <View className={` ps-14 pe-3 flex flex-row-reverse items-center justify-between w-full rounded-full border-0 bg-gray-100 dark:bg-zinc-800 py-1  text-gray-800 dark:text-gray-200 focus:ring-2 focus:ring-primary mb-5 ${className || ''}`}>
       <TextInput
-        className="w-full  flex rounded-full bg-gray-100 dark:bg-zinc-800  text-md text-gray-800 dark:text-gray-200 "
+        className="w-full  flex rounded-full bg-gray-100 dark:bg-zinc-800  text-lg text-gray-800 dark:text-gray-200 "
         placeholder={placeholder}
         placeholderTextColor={theme === 'dark' ? '#6b7280' : '#9ca3af'}
         value={value}

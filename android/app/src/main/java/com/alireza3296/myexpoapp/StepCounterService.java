@@ -17,6 +17,8 @@ import android.os.PowerManager;
 import android.os.Handler;
 import android.util.Log;
 
+import java.util.Calendar;
+
 import androidx.core.app.NotificationCompat;
 
 import java.util.ArrayList;
@@ -28,6 +30,7 @@ public class StepCounterService extends Service implements SensorEventListener {
     private static final String CHANNEL_ID = "STEP_COUNTER_CHANNEL";
     private static final String PREFS_NAME = "StepCounterPrefs";
     private static final String STEP_COUNT_KEY = "stepCount";
+    private static final String LAST_RESET_DATE_KEY = "lastResetDate";
 
     // Movement Qualification Phase (MQP) States
     private enum MQPState {
@@ -57,7 +60,7 @@ public class StepCounterService extends Service implements SensorEventListener {
     private final List<Long> qualTimestamps = new ArrayList<>();
     private final List<Float> qualMagnitudes = new ArrayList<>();
     private final List<Integer> qualDominantAxes = new ArrayList<>();
-    private static final long QUALIFICATION_DURATION_MS = 3000; // 3.5 seconds for faster qualification
+    private static final long QUALIFICATION_DURATION_MS = 3500; // 3.5 seconds for faster qualification
     private static final int MIN_QUALIFYING_PEAKS = 4; // At least 4 peaks for walking
     private static final float CADENCE_VARIANCE_THRESHOLD = 0.50f; // ±50% variance allowed for walking
     private static final float AXIS_CONSISTENCY_THRESHOLD = 0.6f; // 60% same axis for walking
@@ -96,6 +99,11 @@ public class StepCounterService extends Service implements SensorEventListener {
 
         prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         stepCount = prefs.getInt(STEP_COUNT_KEY, 0);
+
+        // Initialize last reset date if not set
+        if (!prefs.contains(LAST_RESET_DATE_KEY)) {
+            prefs.edit().putString(LAST_RESET_DATE_KEY, getCurrentDateString()).apply();
+        }
 
         idleHandler = new Handler();
         idleRunnable = () -> {
@@ -144,6 +152,9 @@ public class StepCounterService extends Service implements SensorEventListener {
 
     @Override
     public void onSensorChanged(SensorEvent event) {
+        // Check for daily reset first
+        checkDailyReset();
+
         Log.d(TAG, "CURRENT_MQP_STATE: " + mqpState.name());
 
         float x = event.values[0];
@@ -255,8 +266,7 @@ public class StepCounterService extends Service implements SensorEventListener {
                     // Timeout without enough peaks
                     mqpState = MQPState.IDLE;
                     updateNotification();
-                    Log.d(TAG, "MQP: QUALIFYING → IDLE (timeout)" + peakCandidate + " " + (now - lastStepTime) + " >= " + minStepInterval + (qualTimestamps.size() >= MIN_QUALIFYING_PEAKS &&
-                    (now - qualificationStartTime) >= QUALIFICATION_DURATION_MS) + "*********"+ qualTimestamps.size() + " >= " + MIN_QUALIFYING_PEAKS +"&&" + (now - qualificationStartTime) + " >= " + QUALIFICATION_DURATION_MS);
+                    Log.d(TAG, "MQP: QUALIFYING → IDLE (timeout)");
                 }
                 break;
 
@@ -418,6 +428,40 @@ public class StepCounterService extends Service implements SensorEventListener {
             sum += timestamps.get(i) - timestamps.get(i - 1);
         }
         return sum / (timestamps.size() - 1);
+    }
+
+    private String getCurrentDateString() {
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        return year + "-" + month + "-" + day;
+    }
+
+    private void checkDailyReset() {
+        String currentDate = getCurrentDateString();
+        String lastResetDate = prefs.getString(LAST_RESET_DATE_KEY, "");
+
+        if (!currentDate.equals(lastResetDate)) {
+            // New day - reset step count
+            stepCount = 0;
+            prefs.edit()
+                .putInt(STEP_COUNT_KEY, 0)
+                .putString(LAST_RESET_DATE_KEY, currentDate)
+                .apply();
+
+            // Reset MQP state
+            mqpState = MQPState.IDLE;
+            gaitLocked = false;
+            cadenceBuffer.clear();
+            qualTimestamps.clear();
+            qualMagnitudes.clear();
+            qualDominantAxes.clear();
+            inPeak = false;
+
+            updateNotification();
+            Log.d(TAG, "DAILY RESET: Step count reset to 0 for new day: " + currentDate);
+        }
     }
 
     private void updateNotification() {
