@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, TextInput } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { useTheme } from '../hooks/theme-context';
 
 interface SearchInputProps {
   placeholder?: string;
@@ -15,15 +16,14 @@ export function SearchInput({
   onChangeText,
   className,
 }: SearchInputProps) {
+  const { theme } = useTheme();
+
   return (
     <View className={`relative mb-3 ${className || ''}`}>
-      <View className="absolute top-1/2 right-6 -translate-y-1/2">
-        <Ionicons name="search" size={20} color="#9ca3af" />
-      </View>
       <TextInput
-        className="w-full rounded-full border-0 bg-gray-100 dark:bg-zinc-800 py-5 pl-6 pr-16 text-md text-gray-800 dark:text-gray-200 placeholder:text-gray-400 focus:ring-2 focus:ring-primary"
+        className="w-full rounded-full border-0 bg-gray-100 dark:bg-zinc-800 py-5 pr-6 pl-20 text-md text-gray-800 dark:text-gray-200 focus:ring-2 focus:ring-primary"
         placeholder={placeholder}
-        placeholderTextColor="#9ca3af"
+        placeholderTextColor={theme === 'dark' ? '#6b7280' : '#9ca3af'}
         value={value}
         onChangeText={onChangeText}
         style={{
@@ -31,6 +31,13 @@ export function SearchInput({
           writingDirection: 'rtl',
         }}
       />
+      <View className="absolute top-1/2 left-6 -translate-y-1/2">
+        <Ionicons
+          name="search"
+          size={28}
+          color={theme === 'dark' ? '#6b7280' : '#9ca3af'}
+        />
+      </View>
     </View>
   );
 }

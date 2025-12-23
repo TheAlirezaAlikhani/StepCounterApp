@@ -17,9 +17,10 @@ interface UserHeaderProps {
   user?: User;
   isLoading?: boolean;
   onNotificationPress?: () => void;
+  onToggleTheme?: () => void;
 }
 
-export function UserHeader({ user, isLoading = false, onNotificationPress }: UserHeaderProps) {
+export function UserHeader({ user, isLoading = false, onNotificationPress, onToggleTheme }: UserHeaderProps) {
   const displayName = user?.display_name || user?.first_name || "کاربر جدید";
 
   return (
@@ -47,13 +48,24 @@ export function UserHeader({ user, isLoading = false, onNotificationPress }: Use
           </Text>
         </View>
       </View>
-      <Pressable
-        className="p-3 rounded-full bg-gray-100 dark:bg-gray-800 active:bg-gray-200 dark:active:bg-gray-700"
-        onPress={onNotificationPress}
-        android_ripple={{ color: 'rgba(0,0,0,0.1)', borderless: true }}
-      >
-        <Ionicons name="notifications-outline" size={20} color="#4b5563" />
-      </Pressable>
+      <View className="flex-row gap-2">
+        {/* {onToggleTheme && (
+          <Pressable
+            className="p-3 rounded-full bg-gray-100 dark:bg-gray-800 active:bg-gray-200 dark:active:bg-gray-700"
+            onPress={onToggleTheme}
+            android_ripple={{ color: 'rgba(0,0,0,0.1)', borderless: true }}
+          >
+            <Ionicons name="moon-outline" size={20} color="#4b5563" />
+          </Pressable>
+        )} */}
+        <Pressable
+          className="p-3 rounded-full bg-gray-100 dark:bg-gray-800 active:bg-gray-200 dark:active:bg-gray-700"
+          onPress={onNotificationPress}
+          android_ripple={{ color: 'rgba(0,0,0,0.1)', borderless: true }}
+        >
+          <Ionicons name="notifications-outline" size={20} color="#4b5563" />
+        </Pressable>
+      </View>
     </View>
   );
 }

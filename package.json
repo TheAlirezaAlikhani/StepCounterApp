@@ -20,6 +20,7 @@
     "expo-constants": "~18.0.12",
     "expo-dev-client": "~6.0.20",
     "expo-image": "~3.0.11",
+    "expo-linear-gradient": "~15.0.8",
     "expo-linking": "~8.0.11",
     "expo-router": "~6.0.21",
     "expo-sensors": "~15.0.8",
@@ -47,6 +48,6 @@
     "tsx": "^4.21.0",
     "typescript": "~5.9.2"
   },
-  "main": "node_modules/expo/AppEntry.js",
+  "main": "expo-router/entry",
   "private": true
 }

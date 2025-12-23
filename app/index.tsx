@@ -1,7 +1,5 @@
 import React, { useMemo, useState } from 'react';
-import { View, Text, ScrollView } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { I18nManager } from 'react-native';
+import { View, Text, ScrollView , I18nManager } from 'react-native';
 import { StepCounter } from '../components/StepCounter';
 import { SuggestedCourseCard } from '../components/SuggestedCourseCard';
 import { TipCard } from '../components/TipCard';
@@ -10,12 +8,14 @@ import { SimpleCarousel } from '../components/SimpleCarousel';
 import { SearchInput } from '../components/SearchInput';
 import { UserHeader } from '../components/UserHeader';
 
+import { useTheme } from '../hooks/theme-context';
 // Ensure RTL is enabled
 if (!I18nManager.isRTL) {
   I18nManager.forceRTL(true);
 }
 
 export default function HomeScreen() {
+  const { theme, toggleTheme } = useTheme();
   // Mock user data - in real app this would come from context/hooks
   const [user] = useState({
     display_name: "کاربر جدید",
@@ -74,15 +74,15 @@ export default function HomeScreen() {
   );
 
   return (
-    <SafeAreaView className="flex-1 bg-background-surface-light dark:bg-background-surface-dark">
-      <ScrollView
-        className="flex-1"
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ paddingBottom: 100 }}
-      >
-        <View className="px-6 pt-6 pb-24">
+    <ScrollView
+      className="flex-1"
+      showsVerticalScrollIndicator={false}
+      contentContainerStyle={{ paddingBottom: 100 }}
+      style={{ backgroundColor: theme === 'dark' ? '#18181B' : '#F8FAFC' }}
+    >
+        <View className="px-6">
           {/* Header */}
-          <UserHeader user={user} isLoading={isLoading} />
+          <UserHeader user={user} isLoading={isLoading} onToggleTheme={toggleTheme} />
 
           {/* Search */}
           <SearchInput />
@@ -147,6 +147,5 @@ export default function HomeScreen() {
           </View>
         </View>
       </ScrollView>
-    </SafeAreaView>
   );
 }

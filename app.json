@@ -2,6 +2,7 @@
   "expo": {
     "name": "my-expo-app",
     "slug": "my-expo-app",
+    "scheme": "my-expo-app",
     "version": "1.0.0",
     "web": {
       "favicon": "./assets/favicon.png"
@@ -20,7 +21,7 @@
     ],
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
+    "userInterfaceStyle": "automatic",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",

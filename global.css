@@ -55,7 +55,7 @@
   --background-light: #FFFFFF;
   --background-dark: #121212;
   --surface-light: #F8FAFC;
-  --surface-dark: oklch(0.21 0.006 285.885);
+  --surface-dark: #18181B;
   --text-light: #0F172A;
   --text-dark: #F8FAFC;
   --text-muted-light: #64748B;
@@ -85,7 +85,7 @@
   --background-light: #121212;
   --background-dark: #121212;
   --surface-light: oklch(0.21 0.006 285.885);
-  --surface-dark: oklch(0.21 0.006 285.885);
+  --surface-dark: #18181B;
   --text-light: #F8FAFC;
   --text-dark: #F8FAFC;
   --text-muted-light: #94A3B8;
