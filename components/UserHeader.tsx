@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, Pressable, Image } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { router } from 'expo-router';
 
 interface User {
   display_name?: string;
@@ -18,9 +19,10 @@ interface UserHeaderProps {
   isLoading?: boolean;
   onNotificationPress?: () => void;
   onToggleTheme?: () => void;
+  onAccountPress?: () => void;
 }
 
-export function UserHeader({ user, isLoading = false, onNotificationPress, onToggleTheme }: UserHeaderProps) {
+export function UserHeader({ user, isLoading = false, onNotificationPress, onToggleTheme, onAccountPress }: UserHeaderProps) {
   const displayName = user?.display_name || user?.first_name || "کاربر جدید";
 
   return (
@@ -49,6 +51,16 @@ export function UserHeader({ user, isLoading = false, onNotificationPress, onTog
         </View>
       </View>
       <View className="flex-row gap-2">
+        {onAccountPress && (
+          <Pressable
+            className="p-3 rounded-full bg-gray-100 dark:bg-gray-800 active:bg-gray-200 dark:active:bg-gray-700"
+            onPress={onAccountPress}
+            android_ripple={{ color: 'rgba(0,0,0,0.1)', borderless: true }}
+          >
+            <Ionicons name="person" size={20} color="#4b5563" />
+          </Pressable>
+        )}
+
         {/* {onToggleTheme && (
           <Pressable
             className="p-3 rounded-full bg-gray-100 dark:bg-gray-800 active:bg-gray-200 dark:active:bg-gray-700"
@@ -58,6 +70,20 @@ export function UserHeader({ user, isLoading = false, onNotificationPress, onTog
             <Ionicons name="moon-outline" size={20} color="#4b5563" />
           </Pressable>
         )} */}
+
+<Pressable
+          className="p-3 rounded-full bg-gray-100 dark:bg-gray-800 active:bg-gray-200 dark:active:bg-gray-700"
+          onPress={() => {
+            // Use expo-router or react-navigation to navigate to the myaccount page
+            // Best practice: useLink for expo-router, useNavigation for react-navigation
+            // Here we use dynamic import for expo-router's router for code splitting
+            import('expo-router').then(({ useRouter }) => {
+              router.push('/myaccount');
+            });
+          }}>
+          <Ionicons name="person-outline" size={20} color="#4b5563" />
+        </Pressable>
+
         <Pressable
           className="p-3 rounded-full bg-gray-100 dark:bg-gray-800 active:bg-gray-200 dark:active:bg-gray-700"
           onPress={onNotificationPress}

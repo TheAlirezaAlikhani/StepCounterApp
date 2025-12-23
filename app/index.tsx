@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import { View, Text, ScrollView , I18nManager } from 'react-native';
+import { useRouter } from 'expo-router';
 import { StepCounter } from '../components/StepCounter';
 import { SuggestedCourseCard } from '../components/SuggestedCourseCard';
 import { TipCard } from '../components/TipCard';
@@ -16,6 +17,12 @@ if (!I18nManager.isRTL) {
 
 export default function HomeScreen() {
   const { theme, toggleTheme } = useTheme();
+  const router = useRouter();
+
+  const handleAccountPress = () => {
+    router.push('/myaccount');
+  };
+
   // Mock user data - in real app this would come from context/hooks
   const [user] = useState({
     display_name: "کاربر جدید",
@@ -82,7 +89,7 @@ export default function HomeScreen() {
     >
         <View className="px-6">
           {/* Header */}
-          <UserHeader user={user} isLoading={isLoading} onToggleTheme={toggleTheme} />
+          <UserHeader user={user} isLoading={isLoading} onToggleTheme={toggleTheme} onAccountPress={handleAccountPress} />
 
           {/* Search */}
           <SearchInput />
