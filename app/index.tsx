@@ -95,9 +95,7 @@ export default function HomeScreen() {
           {/* New Program Card */}
           <SimpleCarousel slides={programSlides} />
 
-          {/* Suggested Courses */}
-          <View className="mb-8 -mx-6">
-            <View className="mb-4 flex-row items-center justify-between px-6">
+            <View className="mb-4 flex-row items-center justify-between">
               <Text className="text-xl font-bold text-gray-900 dark:text-white">
                 دوره‌های پیشنهادی
               </Text>
@@ -105,6 +103,9 @@ export default function HomeScreen() {
                 <Text className="text-sm font-medium text-primary">نمایش همه</Text>
               </View>
             </View>
+          </View>
+          {/* Suggested Courses */}
+          <View className="mb-8 -mx-6 ">
             <ScrollView
               horizontal
               showsHorizontalScrollIndicator={false}
@@ -122,7 +123,7 @@ export default function HomeScreen() {
               ))}
             </ScrollView>
           </View>
-
+        <View className="px-6">
           {/* Tips and Recommendations */}
           <View>
             <View className="mb-4 flex-row items-center justify-between">

@@ -22,14 +22,14 @@ export function NewProgramCard({
   onStart,
 }: NewProgramCardProps) {
   return (
-    <View className="relative mb-8 rounded-2xl bg-gray-100 dark:bg-zinc-800/50 border-0 overflow-hidden">
+    <View style={{ direction: 'rtl' }} className="relative mb-8 rounded-2xl bg-gray-100 dark:bg-zinc-800/50 border-0 overflow-hidden">
       <View className="relative">
         <Image
-          source={require('../assets/splash.png')}
+          source={require('../assets/thumbnail.png')}
           className="w-full h-40"
           resizeMode="cover"
         />
-        <View className="absolute top-3 right-3">
+        <View className="absolute top-3 left-3">
           <View className="flex-row items-center gap-1 rounded-full bg-white px-3 py-1.5">
             <Ionicons name="time-outline" size={14} color="#4b5563" />
             <Text className="text-sm font-medium text-gray-600 dark:text-gray-300">
@@ -54,11 +54,11 @@ export function NewProgramCard({
         </Text>
       </View>
       <Pressable
-        className="absolute bottom-4 left-4 bg-primary rounded-full p-2.5 active:bg-primary/80"
+        className="absolute bottom-4 right-4 bg-primary rounded-full p-3 active:bg-primary/80"
         onPress={onStart}
         android_ripple={{ color: 'rgba(255,255,255,0.3)', borderless: true }}
       >
-        <Ionicons name="chevron-forward" size={16} color="#ffffff" />
+        <Ionicons name="chevron-back" size={25} color="#ffffff" />
       </Pressable>
     </View>
   );

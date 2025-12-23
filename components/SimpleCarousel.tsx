@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { View, ScrollView, Pressable, NativeScrollEvent, NativeSyntheticEvent } from 'react-native';
+import { View, ScrollView, NativeScrollEvent, NativeSyntheticEvent } from 'react-native';
 
 interface SimpleCarouselProps {
   slides: React.ReactNode[];
@@ -8,56 +8,57 @@ interface SimpleCarouselProps {
 
 export function SimpleCarousel({ slides, className }: SimpleCarouselProps) {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [slideWidth, setSlideWidth] = useState(0);
   const scrollViewRef = useRef<ScrollView>(null);
 
   const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
-    const slideSize = event.nativeEvent.layoutMeasurement.width;
-    const index = event.nativeEvent.contentOffset.x / slideSize;
-    const roundIndex = Math.round(index);
-    setActiveIndex(roundIndex);
+    if (slideWidth === 0) return;
+    const offsetX = event.nativeEvent.contentOffset.x;
+    const index = Math.round(offsetX / slideWidth);
+    if (index !== activeIndex && index >= 0 && index < slides.length) {
+      setActiveIndex(index);
+    }
   };
 
-  const goToSlide = (index: number) => {
-    scrollViewRef.current?.scrollTo({
-      x: index * 300, // Approximate slide width
-      animated: true,
-    });
-    setActiveIndex(index);
+
+  const onLayout = (event: any) => {
+    const { width } = event.nativeEvent.layout;
+    setSlideWidth(width);
   };
 
   return (
-    <View className={`max-w-3xl mx-auto pb-6 ${className || ''}`}>
+    <View className={`pb-6 ${className || ''}`}>
       <ScrollView
         ref={scrollViewRef}
         horizontal
-        pagingEnabled
         showsHorizontalScrollIndicator={false}
+        pagingEnabled={slideWidth > 0}
+        decelerationRate="normal"
         onScroll={handleScroll}
         scrollEventThrottle={16}
-        className="overflow-hidden"
+        onLayout={onLayout}
+        bounces={false}
       >
-        <View className="flex-row">
-          {slides.map((slide, index) => (
-            <View
-              key={index}
-              className="shrink-0 min-w-0 pr-4 basis-full"
-            >
-              {slide}
-            </View>
-          ))}
-        </View>
+        {slides.map((slide, index) => (
+          <View
+          className='p-2'
+            key={index}
+            style={{ width: slideWidth }}
+          >
+            {slide}
+          </View>
+        ))}
       </ScrollView>
 
-      <View className="flex-row justify-center items-center gap-2">
+      <View className="flex-row-reverse justify-center items-center gap-2">
         {slides.map((_, index) => (
-          <Pressable
+          <View
             key={index}
             className={`w-2 h-2 rounded-full ${
               index === activeIndex
                 ? 'bg-black dark:bg-white'
                 : 'bg-gray-400 dark:bg-gray-600'
             }`}
-            onPress={() => goToSlide(index)}
           />
         ))}
       </View>
