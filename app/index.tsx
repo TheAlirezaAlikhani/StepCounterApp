@@ -83,7 +83,7 @@ export default function HomeScreen() {
     <ScrollView
       className="flex-1 "
       showsVerticalScrollIndicator={false}
-      contentContainerStyle={{ paddingBottom: 100 }}
+      contentContainerStyle={{ paddingBottom: 10 }}
       style={{ backgroundColor: theme === 'dark' ? '#18181B' : '#F8FAFC' }}
     >
         <View className="px-6">

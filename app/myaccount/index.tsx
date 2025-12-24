@@ -1,7 +1,17 @@
 import React from 'react';
 import { View, Text, ScrollView, Alert, Pressable, Image } from 'react-native';
 import { useTheme } from '../../hooks/theme-context';
-// Using Unicode symbols instead of icons
+import {
+  User,
+  Lock,
+  Dumbbell,
+  ClipboardList,
+  CreditCard,
+  MessageCircle,
+  HelpCircle,
+  LogOut,
+  ChevronLeft
+} from 'lucide-react-native';
 
 export default function MyAccountScreen() {
   const { theme } = useTheme();
@@ -40,7 +50,7 @@ export default function MyAccountScreen() {
       
         <View className="max-w-md mx-auto flex-1">
           <ScrollView className="flex-1" showsVerticalScrollIndicator={false}>
-          <View className="px-6 py-4">
+          <View className="px-6 py-2">
             {/* User Info */}
             <View className="flex-row items-center gap-4 mb-4 mt-4">
               <View className="w-20 h-20 rounded-full bg-slate-200 dark:bg-slate-700 flex items-center justify-center">
@@ -51,7 +61,7 @@ export default function MyAccountScreen() {
                     resizeMode="cover"
                   />
                 ) : (
-                  <Text className="text-2xl text-slate-500">👤</Text>
+                  <User size={32} color="#64748B" />
                 )}
               </View>
               <View>
@@ -74,22 +84,22 @@ export default function MyAccountScreen() {
                 <View className="space-y-2">
                   <Pressable className="flex-row items-center justify-between p-3 rounded-lg active:bg-slate-100 dark:active:bg-slate-700/50">
                     <View className="flex-row items-center gap-3">
-                      <Text className="text-lg">👤</Text>
+                      <User size={24} color="#8B5CF6" />
                       <Text className="font-medium text-sm text-gray-900 dark:text-white">
                         ویرایش پروفایل
                       </Text>
                     </View>
-                    <Text className="text-lg">›</Text>
+                    <ChevronLeft size={24} color="#9CA3AF" />
                   </Pressable>
 
                   <Pressable className="flex-row items-center justify-between p-3 rounded-2xl active:bg-slate-100 dark:active:bg-slate-700/50">
                     <View className="flex-row items-center gap-3">
-                      <Text className="text-lg">🔒</Text>
+                      <Lock size={24} color="#8B5CF6" />
                       <Text className="font-medium text-sm text-gray-900 dark:text-white">
                         تغییر رمز عبور
                       </Text>
                     </View>
-                    <Text className="text-lg">›</Text>
+                    <ChevronLeft size={24} color="#9CA3AF" />
                   </Pressable>
                 </View>
               </View>
@@ -102,12 +112,12 @@ export default function MyAccountScreen() {
                 <View className="space-y-2">
                   <Pressable className="flex-row items-center justify-between p-3 rounded-2xl active:bg-slate-100 dark:active:bg-slate-700/50">
                     <View className="flex-row items-center gap-3">
-                      <Text className="text-lg">🏋️</Text>
+                      <Dumbbell size={24} color="#8B5CF6" />
                       <Text className="font-medium text-sm text-gray-900 dark:text-white">
                         اهداف و مشخصات
                       </Text>
                     </View>
-                    <Text className="text-lg">›</Text>
+                    <ChevronLeft size={24} color="#9CA3AF" />
                   </Pressable>
                 </View>
               </View>
@@ -120,22 +130,22 @@ export default function MyAccountScreen() {
                 <View className="space-y-2">
                   <Pressable className="flex-row items-center justify-between p-3 rounded-2xl active:bg-slate-100 dark:active:bg-slate-700/50">
                     <View className="flex-row items-center gap-3">
-                      <Text className="text-lg">📋</Text>
+                      <ClipboardList size={24} color="#8B5CF6" />
                       <Text className="font-medium text-sm text-gray-900 dark:text-white">
                         برنامه‌های فعال
                       </Text>
                     </View>
-                    <Text className="text-lg">›</Text>
+                    <ChevronLeft size={24} color="#9CA3AF" />
                   </Pressable>
 
                   <Pressable className="flex-row items-center justify-between p-3 rounded-2xl active:bg-slate-100 dark:active:bg-slate-700/50">
                     <View className="flex-row items-center gap-3">
-                      <Text className="text-lg">💳</Text>
+                      <CreditCard size={24} color="#8B5CF6" />
                       <Text className="font-medium text-sm text-gray-900 dark:text-white">
                         تاریخچه پرداخت‌ها
                       </Text>
                     </View>
-                    <Text className="text-lg">›</Text>
+                    <ChevronLeft size={24} color="#9CA3AF" />
                   </Pressable>
                 </View>
               </View>
@@ -148,22 +158,22 @@ export default function MyAccountScreen() {
                 <View className="space-y-2">
                   <Pressable className="flex-row items-center justify-between p-3 rounded-2xl active:bg-slate-100 dark:active:bg-slate-700/50">
                     <View className="flex-row items-center gap-3">
-                      <Text className="text-lg">💬</Text>
+                      <MessageCircle size={24} color="#8B5CF6" />
                       <Text className="font-medium text-sm text-gray-900 dark:text-white">
                         ارتباط با ما
                       </Text>
                     </View>
-                    <Text className="text-lg">›</Text>
+                    <ChevronLeft size={24} color="#9CA3AF" />
                   </Pressable>
 
                     <Pressable className="flex-row items-center justify-between p-3 rounded-2xl active:bg-slate-100 dark:active:bg-slate-700/50">
                     <View className="flex-row items-center gap-3">
-                      <Text className="text-lg">❓</Text>
+                      <HelpCircle size={24} color="#8B5CF6" />
                       <Text className="font-medium text-sm text-gray-900 dark:text-white">
                         سوالات متداول
                       </Text>
                     </View>
-                    <Text className="text-lg">›</Text>
+                    <ChevronLeft size={24} color="#9CA3AF" />
                   </Pressable>
                 </View>
               </View>
@@ -176,7 +186,7 @@ export default function MyAccountScreen() {
               className="flex-row items-center justify-center p-3 rounded-lg bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 active:bg-red-100 dark:active:bg-red-900/30"
               android_ripple={{ color: 'rgba(239, 68, 68, 0.1)' }}
             >
-                <Text className="text-lg mr-2">🚪</Text>
+                <LogOut size={24} color="#EF4444" style={{ marginRight: 8 }} />
                 <Text className="text-red-500 font-bold text-sm">
                   خروج از حساب
                 </Text>
