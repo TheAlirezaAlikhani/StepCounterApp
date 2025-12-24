@@ -21,7 +21,11 @@ function RootLayout() {
         screenOptions={{
           headerShown: false,
         }}
-      />
+      >
+        <Stack.Screen name="index" />
+        <Stack.Screen name="myaccount" />
+        <Stack.Screen name="courses-list" />
+      </Stack>
       <StatusBar style="auto" />
     </SafeAreaView>
   );

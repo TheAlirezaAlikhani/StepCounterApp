@@ -187,7 +187,7 @@ export default function MyAccountScreen() {
               android_ripple={{ color: 'rgba(239, 68, 68, 0.1)' }}
             >
                 <LogOut size={24} color="#EF4444" style={{ marginRight: 8 }} />
-                <Text className="text-red-500 font-bold text-sm">
+                <Text className="text-red-500 dark:text-red-500 font-bold text-sm" style={{ color: theme === 'dark' ? '#f3f4f6' : '#111827' }}>
                   خروج از حساب
                 </Text>
               </Pressable>
