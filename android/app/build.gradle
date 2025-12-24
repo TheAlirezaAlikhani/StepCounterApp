@@ -105,10 +105,6 @@ android {
             keyPassword 'android'
         }
     }
-    lint {
-        checkReleaseBuilds false
-        abortOnError false
-    }
     buildTypes {
         debug {
             signingConfig signingConfigs.debug

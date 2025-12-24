@@ -8,7 +8,6 @@ import { NewProgramCard } from '../components/NewProgramCard';
 import { SimpleCarousel } from '../components/SimpleCarousel';
 import { SearchInput } from '../components/SearchInput';
 import { UserHeader } from '../components/UserHeader';
-
 import { useTheme } from '../hooks/theme-context';
 // Ensure RTL is enabled
 if (!I18nManager.isRTL) {
@@ -99,6 +98,7 @@ export default function HomeScreen() {
             <StepCounter />
           </View>
 
+         
           {/* New Program Card */}
           <SimpleCarousel slides={programSlides} />
 

@@ -3,7 +3,9 @@
   "compilerOptions": {
     "strict": true,
     "plugins": [
-      "expo-router/tsconfig-paths-plugin.js"
+      {
+        "name": "expo-router/tsconfig-paths-plugin"
+      }
     ],
     "baseUrl": ".",
     "paths": {

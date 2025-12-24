@@ -1,19 +1,10 @@
 import React from 'react';
 import { View, Text, ScrollView, Alert, Pressable, Image } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import {
-  User,
-  Lock,
-  Dumbbell,
-  ClipboardList,
-  CreditCard,
-  MessageCircle,
-  HelpCircle,
-  LogOut,
-  ChevronLeft
-} from 'lucide-react-native';
+import { useTheme } from '../../hooks/theme-context';
+// Using Unicode symbols instead of icons
 
 export default function MyAccountScreen() {
+  const { theme } = useTheme();
 
   // Mock user data - replace with actual user data
   const user = {
@@ -45,8 +36,8 @@ export default function MyAccountScreen() {
   };
 
   return (
-    <View className="flex-1 bg-[#f7fafc] dark:bg-[#18181B]">
-      <SafeAreaView className="flex-1">
+    <View className="flex-1" style={{ backgroundColor: theme === 'dark' ? '#18181B' : '#f7fafc' }}>
+      
         <View className="max-w-md mx-auto flex-1">
           <ScrollView className="flex-1" showsVerticalScrollIndicator={false}>
           <View className="px-6 py-4">
@@ -60,7 +51,7 @@ export default function MyAccountScreen() {
                     resizeMode="cover"
                   />
                 ) : (
-                  <User size={32} color="#64748B" />
+                  <Text className="text-2xl text-slate-500">👤</Text>
                 )}
               </View>
               <View>
@@ -77,102 +68,102 @@ export default function MyAccountScreen() {
             <View className="gap-4 mt-6">
               {/* User Information Section */}
               <View className="bg-white dark:bg-zinc-700 p-4 rounded-2xl">
-                <Text className="font-bold mb-4 text-base text-gray-900 dark:text-gray-100">
+                <Text className="font-bold mb-4 text-base" style={{ color: theme === 'dark' ? '#f3f4f6' : '#111827' }}>
                   اطلاعات کاربری
                 </Text>
                 <View className="space-y-2">
                   <Pressable className="flex-row items-center justify-between p-3 rounded-lg active:bg-slate-100 dark:active:bg-slate-700/50">
                     <View className="flex-row items-center gap-3">
-                      <User size={24} color="#8B5CF6" />
+                      <Text className="text-lg">👤</Text>
                       <Text className="font-medium text-sm text-gray-900 dark:text-white">
                         ویرایش پروفایل
                       </Text>
                     </View>
-                    <ChevronLeft size={24} color="#9CA3AF" />
+                    <Text className="text-lg">›</Text>
                   </Pressable>
 
                   <Pressable className="flex-row items-center justify-between p-3 rounded-2xl active:bg-slate-100 dark:active:bg-slate-700/50">
                     <View className="flex-row items-center gap-3">
-                      <Lock size={24} color="#8B5CF6" />
+                      <Text className="text-lg">🔒</Text>
                       <Text className="font-medium text-sm text-gray-900 dark:text-white">
                         تغییر رمز عبور
                       </Text>
                     </View>
-                    <ChevronLeft size={24} color="#9CA3AF" />
+                    <Text className="text-lg">›</Text>
                   </Pressable>
                 </View>
               </View>
 
               {/* Physical Information Section */}
               <View className="bg-white dark:bg-zinc-700 p-4 rounded-2xl">
-                <Text className="font-bold mb-4 text-base text-gray-900 dark:text-gray-100">
+                <Text className="font-bold mb-4 text-base" style={{ color: theme === 'dark' ? '#f3f4f6' : '#111827' }}>
                   مشخصات بدنی
                 </Text>
                 <View className="space-y-2">
                   <Pressable className="flex-row items-center justify-between p-3 rounded-2xl active:bg-slate-100 dark:active:bg-slate-700/50">
                     <View className="flex-row items-center gap-3">
-                      <Dumbbell size={24} color="#8B5CF6" />
+                      <Text className="text-lg">🏋️</Text>
                       <Text className="font-medium text-sm text-gray-900 dark:text-white">
                         اهداف و مشخصات
                       </Text>
                     </View>
-                    <ChevronLeft size={24} color="#9CA3AF" />
+                    <Text className="text-lg">›</Text>
                   </Pressable>
                 </View>
               </View>
 
               {/* Programs and Payments Section */}
               <View className="bg-white dark:bg-zinc-700 p-4 rounded-2xl">
-                <Text className="font-bold mb-4 text-base text-gray-900 dark:text-gray-100">
+                <Text className="font-bold mb-4 text-base" style={{ color: theme === 'dark' ? '#f3f4f6' : '#111827' }}>
                   برنامه‌ها و پرداخت‌ها
                 </Text>
                 <View className="space-y-2">
                   <Pressable className="flex-row items-center justify-between p-3 rounded-2xl active:bg-slate-100 dark:active:bg-slate-700/50">
                     <View className="flex-row items-center gap-3">
-                      <ClipboardList size={24} color="#8B5CF6" />
+                      <Text className="text-lg">📋</Text>
                       <Text className="font-medium text-sm text-gray-900 dark:text-white">
                         برنامه‌های فعال
                       </Text>
                     </View>
-                    <ChevronLeft size={24} color="#9CA3AF" />
+                    <Text className="text-lg">›</Text>
                   </Pressable>
 
                   <Pressable className="flex-row items-center justify-between p-3 rounded-2xl active:bg-slate-100 dark:active:bg-slate-700/50">
                     <View className="flex-row items-center gap-3">
-                      <CreditCard size={24} color="#8B5CF6" />
+                      <Text className="text-lg">💳</Text>
                       <Text className="font-medium text-sm text-gray-900 dark:text-white">
                         تاریخچه پرداخت‌ها
                       </Text>
                     </View>
-                    <ChevronLeft size={24} color="#9CA3AF" />
+                    <Text className="text-lg">›</Text>
                   </Pressable>
                 </View>
               </View>
 
               {/* Support Section */}
                 <View className="bg-white dark:bg-zinc-700 p-4 rounded-2xl">
-                <Text className="font-bold mb-4 text-base text-gray-900 dark:text-gray-100">
+                <Text className="font-bold mb-4 text-base" style={{ color: theme === 'dark' ? '#f3f4f6' : '#111827' }}>
                   پشتیبانی
                 </Text>
                 <View className="space-y-2">
                   <Pressable className="flex-row items-center justify-between p-3 rounded-2xl active:bg-slate-100 dark:active:bg-slate-700/50">
                     <View className="flex-row items-center gap-3">
-                      <MessageCircle size={24} color="#8B5CF6" />
+                      <Text className="text-lg">💬</Text>
                       <Text className="font-medium text-sm text-gray-900 dark:text-white">
                         ارتباط با ما
                       </Text>
                     </View>
-                    <ChevronLeft size={24} color="#9CA3AF" />
+                    <Text className="text-lg">›</Text>
                   </Pressable>
 
                     <Pressable className="flex-row items-center justify-between p-3 rounded-2xl active:bg-slate-100 dark:active:bg-slate-700/50">
                     <View className="flex-row items-center gap-3">
-                      <HelpCircle size={24} color="#8B5CF6" />
+                      <Text className="text-lg">❓</Text>
                       <Text className="font-medium text-sm text-gray-900 dark:text-white">
                         سوالات متداول
                       </Text>
                     </View>
-                    <ChevronLeft size={24} color="#9CA3AF" />
+                    <Text className="text-lg">›</Text>
                   </Pressable>
                 </View>
               </View>
@@ -185,8 +176,8 @@ export default function MyAccountScreen() {
               className="flex-row items-center justify-center p-3 rounded-lg bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 active:bg-red-100 dark:active:bg-red-900/30"
               android_ripple={{ color: 'rgba(239, 68, 68, 0.1)' }}
             >
-                <LogOut size={24} color="#EF4444" style={{ marginRight: 8 }} />
-                <Text className="text-red-500 dark:text-red-500 font-bold text-sm">
+                <Text className="text-lg mr-2">🚪</Text>
+                <Text className="text-red-500 font-bold text-sm">
                   خروج از حساب
                 </Text>
               </Pressable>
@@ -194,7 +185,7 @@ export default function MyAccountScreen() {
           </View>
         </ScrollView>
       </View>
-    </SafeAreaView>
+   
     </View>
   );
 }
