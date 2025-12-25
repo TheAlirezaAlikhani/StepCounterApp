@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Image } from 'react-native';
+import { View, Text, Image, ColorSchemeName } from 'react-native';
 import { Heart, Clock, Signal, SignalLow, SignalMedium } from 'lucide-react-native';
 
 interface Course {
@@ -15,7 +15,7 @@ interface Course {
 
 interface CourseCardProps {
   course: Course;
-  theme: 'light' | 'dark' | undefined;
+  theme: ColorSchemeName;
   onToggleFavorite: (id: number) => void;
 }
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, ScrollView, Alert, Pressable, Image } from 'react-native';
 import { useTheme } from '../../hooks/theme-context';
+import { useRouter } from 'expo-router';
 import {
   User,
   Lock,
@@ -15,6 +16,7 @@ import {
 
 export default function MyAccountScreen() {
   const { theme } = useTheme();
+  const router = useRouter();
 
   // Mock user data - replace with actual user data
   const user = {
@@ -45,12 +47,40 @@ export default function MyAccountScreen() {
     );
   };
 
+  const handleEditProfile = () => {
+    router.push('/myaccount/profile-edit');
+  };
+
+  const handleChangePassword = () => {
+    Alert.alert('اطلاع', 'این قابلیت به زودی اضافه خواهد شد');
+  };
+
+  const handleGoalsAndSpecs = () => {
+    Alert.alert('اطلاع', 'این قابلیت به زودی اضافه خواهد شد');
+  };
+
+  const handleActiveCourses = () => {
+    router.push('/myaccount/active-courses');
+  };
+
+  const handlePaymentHistory = () => {
+    router.push('/myaccount/payment-history');
+  };
+
+  const handleContactUs = () => {
+    router.push('/contact-us');
+  };
+
+  const handleFAQ = () => {
+    router.push('/faq');
+  };
+
   return (
     <View className="flex-1" style={{ backgroundColor: theme === 'dark' ? '#18181B' : '#f7fafc' }}>
       
         <View className="max-w-md mx-auto flex-1">
           <ScrollView className="flex-1" showsVerticalScrollIndicator={false}>
-          <View className="px-6 py-2">
+          <View className="px-6 py-4">
             {/* User Info */}
             <View className="flex-row items-center gap-4 mb-4 mt-4">
               <View className="w-20 h-20 rounded-full bg-slate-200 dark:bg-slate-700 flex items-center justify-center">
@@ -82,7 +112,7 @@ export default function MyAccountScreen() {
                   اطلاعات کاربری
                 </Text>
                 <View className="space-y-2">
-                  <Pressable className="flex-row items-center justify-between p-3 rounded-lg active:bg-slate-100 dark:active:bg-slate-700/50">
+                  <Pressable onPress={handleEditProfile} className="flex-row items-center justify-between p-3 rounded-lg active:bg-slate-100 dark:active:bg-slate-700/50">
                     <View className="flex-row items-center gap-3">
                       <User size={24} color="#8B5CF6" />
                       <Text className="font-medium text-sm text-gray-900 dark:text-white">
@@ -92,7 +122,7 @@ export default function MyAccountScreen() {
                     <ChevronLeft size={24} color="#9CA3AF" />
                   </Pressable>
 
-                  <Pressable className="flex-row items-center justify-between p-3 rounded-2xl active:bg-slate-100 dark:active:bg-slate-700/50">
+                  <Pressable onPress={handleChangePassword} className="flex-row items-center justify-between p-3 rounded-2xl active:bg-slate-100 dark:active:bg-slate-700/50">
                     <View className="flex-row items-center gap-3">
                       <Lock size={24} color="#8B5CF6" />
                       <Text className="font-medium text-sm text-gray-900 dark:text-white">
@@ -110,7 +140,7 @@ export default function MyAccountScreen() {
                   مشخصات بدنی
                 </Text>
                 <View className="space-y-2">
-                  <Pressable className="flex-row items-center justify-between p-3 rounded-2xl active:bg-slate-100 dark:active:bg-slate-700/50">
+                  <Pressable onPress={handleGoalsAndSpecs} className="flex-row items-center justify-between p-3 rounded-2xl active:bg-slate-100 dark:active:bg-slate-700/50">
                     <View className="flex-row items-center gap-3">
                       <Dumbbell size={24} color="#8B5CF6" />
                       <Text className="font-medium text-sm text-gray-900 dark:text-white">
@@ -128,7 +158,7 @@ export default function MyAccountScreen() {
                   برنامه‌ها و پرداخت‌ها
                 </Text>
                 <View className="space-y-2">
-                  <Pressable className="flex-row items-center justify-between p-3 rounded-2xl active:bg-slate-100 dark:active:bg-slate-700/50">
+                  <Pressable onPress={handleActiveCourses} className="flex-row items-center justify-between p-3 rounded-2xl active:bg-slate-100 dark:active:bg-slate-700/50">
                     <View className="flex-row items-center gap-3">
                       <ClipboardList size={24} color="#8B5CF6" />
                       <Text className="font-medium text-sm text-gray-900 dark:text-white">
@@ -138,7 +168,7 @@ export default function MyAccountScreen() {
                     <ChevronLeft size={24} color="#9CA3AF" />
                   </Pressable>
 
-                  <Pressable className="flex-row items-center justify-between p-3 rounded-2xl active:bg-slate-100 dark:active:bg-slate-700/50">
+                  <Pressable onPress={handlePaymentHistory} className="flex-row items-center justify-between p-3 rounded-2xl active:bg-slate-100 dark:active:bg-slate-700/50">
                     <View className="flex-row items-center gap-3">
                       <CreditCard size={24} color="#8B5CF6" />
                       <Text className="font-medium text-sm text-gray-900 dark:text-white">
@@ -156,7 +186,7 @@ export default function MyAccountScreen() {
                   پشتیبانی
                 </Text>
                 <View className="space-y-2">
-                  <Pressable className="flex-row items-center justify-between p-3 rounded-2xl active:bg-slate-100 dark:active:bg-slate-700/50">
+                  <Pressable onPress={handleContactUs} className="flex-row items-center justify-between p-3 rounded-2xl active:bg-slate-100 dark:active:bg-slate-700/50">
                     <View className="flex-row items-center gap-3">
                       <MessageCircle size={24} color="#8B5CF6" />
                       <Text className="font-medium text-sm text-gray-900 dark:text-white">
@@ -166,7 +196,7 @@ export default function MyAccountScreen() {
                     <ChevronLeft size={24} color="#9CA3AF" />
                   </Pressable>
 
-                    <Pressable className="flex-row items-center justify-between p-3 rounded-2xl active:bg-slate-100 dark:active:bg-slate-700/50">
+                    <Pressable onPress={handleFAQ} className="flex-row items-center justify-between p-3 rounded-2xl active:bg-slate-100 dark:active:bg-slate-700/50">
                     <View className="flex-row items-center gap-3">
                       <HelpCircle size={24} color="#8B5CF6" />
                       <Text className="font-medium text-sm text-gray-900 dark:text-white">

@@ -93,7 +93,7 @@ export default function CourseListPage() {
         >
           <View className="px-6 py-4">
             {/* Header */}
-            <View className="mb-6 flex-row items-center justify-between w-full">
+            <View className="p-6 flex-row items-center justify-between w-full">
               <Text className="text-2xl font-bold" style={{ color: theme === 'dark' ? '#ffffff' : '#111827' }}>
                 تمام دوره‌ها
               </Text>
@@ -106,7 +106,7 @@ export default function CourseListPage() {
             </View>
 
             {/* Search */}
-            <View className="mb-3">
+            <View className="mb-4">
               <SearchInput
                 placeholder="جستجو در دوره‌ها..."
                 value={searchQuery}
