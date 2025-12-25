@@ -5,7 +5,8 @@
     "scheme": "letsfit",
     "version": "1.0.0",
     "web": {
-      "favicon": "./assets/logo/Logo432Black.png"
+      "bundler": "metro",
+      "favicon": "./assets/logo/logo.png"
     },
     "experiments": {
       "tsconfigPaths": true
@@ -18,13 +19,15 @@
           "motionPermission": "Allow $(PRODUCT_NAME) to access your device motion."
         }
       ],
-      "expo-router"
+      "expo-router",
+      "expo-font",
+      "expo-asset"
     ],
     "orientation": "portrait",
-    "icon": "./assets/logo/Logo512Black.png",
+    "icon": "./assets/logo/logo.png",
     "userInterfaceStyle": "automatic",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/splash-black.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -36,7 +39,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/logo/Logo432Black.png",
+        "foregroundImage": "./assets/logo/logo.png",
         "backgroundColor": "#ffffff"
       },
       "package": "com.alireza3296.myexpoapp"

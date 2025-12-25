@@ -78,7 +78,7 @@ export function UserHeader({ user, isLoading = false, onNotificationPress, onTog
             // Best practice: useLink for expo-router, useNavigation for react-navigation
             // Here we use dynamic import for expo-router's router for code splitting
             import('expo-router').then(({ useRouter }) => {
-              router.push('/myaccount');
+              router.push('/signup');
             });
           }}>
           <Ionicons name="person-outline" size={20} color="#4b5563" />
