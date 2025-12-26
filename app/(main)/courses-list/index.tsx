@@ -90,7 +90,7 @@ export default function CourseListPage() {
         <ScrollView
           className="flex-1"
           showsVerticalScrollIndicator={false}
-          contentContainerStyle={{ paddingBottom: 10 }}
+          contentContainerStyle={{ paddingBottom: 100 }}
         >
           <View className="px-6 py-4">
             {/* Header */}

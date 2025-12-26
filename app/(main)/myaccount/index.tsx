@@ -91,7 +91,11 @@ export default function MyAccountScreen() {
   return (
     <View className="flex-1" style={{ backgroundColor: colors.background }}>
       <View className="  flex-1">
-        <ScrollView className="flex-1" showsVerticalScrollIndicator={false}>
+        <ScrollView 
+          className="flex-1" 
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{ paddingBottom: 100 }}
+        >
           <View className="px-6 py-4">
             {/* User Info */}
             <View className="flex-row items-center gap-4 mb-4 mt-4">

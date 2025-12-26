@@ -102,6 +102,7 @@ export default function SignupWizard() {
   const canGoPrev = currentStepIndex > 0;
   const canGoNext = currentStepIndex < steps.length - 1 && isCurrentValid() && !isLoading;
 
+
   // Handle OTP request (PhoneStep -> OTPStep)
   const handleRequestOTP = async () => {
     const phoneNumber = formValues[4]?.replace(/\D/g, '');
@@ -310,7 +311,7 @@ export default function SignupWizard() {
           }));
           signIn(sessionToken);
           console.log('✅ [SignupWizard] Session created after profile update');
-          // Redirect to home after session is created
+          // Redirect to home after session is created (Expo Router will handle fade transition)
           router.replace('/');
         }
         return true;
@@ -351,7 +352,7 @@ export default function SignupWizard() {
       const success = await handleUpdateProfile();
       if (success) {
         console.log('✅ [SignupWizard] Form completed - redirecting to home');
-        router.replace('/');
+        // navigateToHome is already called in handleUpdateProfile
       }
       return;
     }
@@ -431,11 +432,11 @@ export default function SignupWizard() {
 
   // For Form Steps - With proper padding and controls
   return (
-    <KeyboardAvoidingView 
-      className="flex-1"
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      style={{ backgroundColor: colors.background }}
-    >
+      <KeyboardAvoidingView 
+        className="flex-1"
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={{ backgroundColor: colors.background }}
+      >
       <View className="flex-1">
         {/* Header with Back Button and Dot Pagination */}
         <View className="pt-12 pb-4 px-4">

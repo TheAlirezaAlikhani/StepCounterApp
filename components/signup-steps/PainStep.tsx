@@ -14,7 +14,7 @@ const painOptions = [
   { value: 'درد مچ', label: 'درد مچ' },
 ];
 
-export function PainStep({ value, onChange, disabled, isValid, onEnter, currentStepId = 9 }: StepComponentProps) {
+export function PainStep({ value, onChange, disabled, isValid, onEnter, currentStepId = 9, isLoading }: StepComponentProps) {
   const { theme } = useTheme();
   const isDark = theme === 'dark';
   
@@ -94,7 +94,11 @@ export function PainStep({ value, onChange, disabled, isValid, onEnter, currentS
       </View>
 
       {/* Bottom Navigation Area - Only Next Button */}
-      <NextButton onPress={onEnter} disabled={disabled || !isValid} />
+      <NextButton 
+        onPress={onEnter} 
+        disabled={disabled || !isValid} 
+        isLoading={isLoading}
+      />
     </View>
   );
 }
