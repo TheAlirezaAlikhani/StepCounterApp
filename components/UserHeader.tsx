@@ -1,7 +1,8 @@
 import React from 'react';
-import { View, Text, Pressable, Image } from 'react-native';
+import { View, Pressable, Image } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
+import { Text } from './ui/Text';
 
 interface User {
   display_name?: string;
@@ -36,7 +37,7 @@ export function UserHeader({ user, isLoading = false, onNotificationPress, onTog
               resizeMode="cover"
             />
           ) : (
-            <Text className="text-primary text-base font-semibold">
+            <Text weight="semiBold" className="text-primary text-base">
               {isLoading ? "..." : displayName.charAt(0)}
             </Text>
           )}
@@ -45,7 +46,7 @@ export function UserHeader({ user, isLoading = false, onNotificationPress, onTog
           <Text className="text-sm text-gray-500 dark:text-gray-400">
             امروز چطوری؟
           </Text>
-          <Text className="text-xl font-bold text-gray-900 dark:text-white truncate">
+          <Text weight="bold" className="text-xl text-gray-900 dark:text-white truncate">
             {isLoading ? "..." : displayName}
           </Text>
         </View>

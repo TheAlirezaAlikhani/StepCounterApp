@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { View, Text, ScrollView, TouchableOpacity, TextInput, Linking, Alert } from 'react-native';
+import { View, ScrollView, TouchableOpacity, TextInput, Linking, Alert } from 'react-native';
 import { ChevronLeft, Mail, Send } from 'lucide-react-native';
 import { useTheme } from '../../../hooks/theme-context';
 import { useRouter } from 'expo-router';
+import { Text } from '../../../components/ui/Text';
 
 export default function ContactUsPage() {
   const { theme } = useTheme();
@@ -74,7 +75,7 @@ export default function ContactUsPage() {
       <View className="max-w-md mx-auto flex-1">
         {/* Header */}
         <View className="p-6 flex-row items-center justify-between w-full">
-          <Text className="text-2xl font-bold" style={{ color: theme === 'dark' ? '#ffffff' : '#111827' }}>
+          <Text weight="bold" className="text-2xl" style={{ color: theme === 'dark' ? '#ffffff' : '#111827' }}>
             ارتباط با ما
           </Text>
           <TouchableOpacity
@@ -100,7 +101,7 @@ export default function ContactUsPage() {
           {/* Contact Methods */}
           <View className="gap-4 mb-8">
             <View className="bg-white dark:bg-zinc-800 p-4 rounded-xl">
-              <Text className="text-base font-bold mb-4" style={{ color: theme === 'dark' ? '#ffffff' : '#111827' }}>
+              <Text weight="bold" className="text-base mb-4" style={{ color: theme === 'dark' ? '#ffffff' : '#111827' }}>
                 راه‌های ارتباطی
               </Text>
               <View className="gap-2">
@@ -112,7 +113,7 @@ export default function ContactUsPage() {
                   >
                     <View className="flex-row items-center gap-3">
                       {getIcon(method.icon)}
-                      <Text className="font-medium text-sm" style={{ color: theme === 'dark' ? '#ffffff' : '#111827' }}>
+                      <Text weight="medium" className="text-sm" style={{ color: theme === 'dark' ? '#ffffff' : '#111827' }}>
                         {method.title}
                       </Text>
                     </View>
@@ -126,12 +127,12 @@ export default function ContactUsPage() {
 
             {/* Contact Form */}
             <View className="bg-white dark:bg-zinc-800 p-4 rounded-xl">
-              <Text className="text-base font-bold mb-4" style={{ color: theme === 'dark' ? '#ffffff' : '#111827' }}>
+              <Text weight="bold" className="text-base mb-4" style={{ color: theme === 'dark' ? '#ffffff' : '#111827' }}>
                 ارسال پیام مستقیم
               </Text>
               <View className="gap-4">
                 <View>
-                  <Text className="text-sm font-medium mb-2" style={{ color: theme === 'dark' ? '#9ca3af' : '#6b7280' }}>
+                  <Text weight="medium" className="text-sm mb-2" style={{ color: theme === 'dark' ? '#9ca3af' : '#6b7280' }}>
                     موضوع
                   </Text>
                   <TextInput
@@ -148,7 +149,7 @@ export default function ContactUsPage() {
                 </View>
 
                 <View>
-                  <Text className="text-sm font-medium mb-2" style={{ color: theme === 'dark' ? '#9ca3af' : '#6b7280' }}>
+                  <Text weight="medium" className="text-sm mb-2" style={{ color: theme === 'dark' ? '#9ca3af' : '#6b7280' }}>
                     پیام شما
                   </Text>
                   <TextInput
@@ -172,7 +173,7 @@ export default function ContactUsPage() {
                   className="w-full bg-purple-600 py-4 rounded-xl flex-row items-center justify-center gap-2"
                 >
                   <Send size={16} color="#ffffff" />
-                  <Text className="text-white font-bold text-base">
+                  <Text weight="bold" className="text-white text-base">
                     ارسال پیام
                   </Text>
                 </TouchableOpacity>

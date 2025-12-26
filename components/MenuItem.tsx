@@ -1,6 +1,7 @@
 import React from 'react';
-import { View, Text, Pressable } from 'react-native';
+import { View, Pressable } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { Text } from './ui/Text';
 
 interface MenuItemProps {
   icon: string;
@@ -20,7 +21,7 @@ export function MenuItem({ icon, title, onPress, showChevron = true }: MenuItemP
         <View className="w-9 h-9 rounded-xl bg-primary/10 items-center justify-center">
           <Ionicons name={icon as any} size={24} color="#8B5CF6" />
         </View>
-        <Text className="font-medium text-sm text-gray-900 dark:text-white">
+        <Text weight="medium" className="text-sm text-gray-900 dark:text-white">
           {title}
         </Text>
       </View>

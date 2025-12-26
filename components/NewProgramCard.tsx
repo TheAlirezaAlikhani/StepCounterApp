@@ -1,6 +1,7 @@
 import React from 'react';
-import { View, Text, Pressable, Image } from 'react-native';
+import { View, Pressable, Image } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { Text } from './ui/Text';
 
 interface NewProgramCardProps {
   title?: string;
@@ -32,7 +33,7 @@ export function NewProgramCard({
         <View className="absolute top-3 left-3">
           <View className="flex-row items-center gap-1 rounded-full bg-white px-3 py-1.5">
             <Ionicons name="time-outline" size={14} color="#4b5563" />
-            <Text className="text-sm font-medium text-gray-600 dark:text-gray-300">
+            <Text weight="medium" className="text-sm text-gray-600 dark:text-gray-300">
               {duration}
             </Text>
           </View>
@@ -41,7 +42,7 @@ export function NewProgramCard({
       <View className="p-4">
         <View className="flex-row items-start gap-4 mb-1">
           <View className="flex-1">
-            <Text className="text-lg font-bold text-gray-900 dark:text-white">
+            <Text weight="bold" className="text-lg text-gray-900 dark:text-white">
               {title}
             </Text>
             <Text className="text-sm text-gray-500 dark:text-gray-400 mt-0.5">

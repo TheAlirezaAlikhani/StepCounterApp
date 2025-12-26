@@ -1,0 +1,87 @@
+diff --git a/node_modules/@quidone/react-native-wheel-picker/src/base/list/List.tsx b/node_modules/@quidone/react-native-wheel-picker/src/base/list/List.tsx
+index 7e6f3b6..a897fcb 100644
+--- a/node_modules/@quidone/react-native-wheel-picker/src/base/list/List.tsx
++++ b/node_modules/@quidone/react-native-wheel-picker/src/base/list/List.tsx
+@@ -39,6 +39,7 @@ export type ListProps<ItemT extends PickerItem<any>> = {
+   onScrollStart: (() => void) | undefined;
+   onScrollEnd: () => void;
+   contentContainerStyle: StyleProp<ViewStyle> | undefined;
++  scrollEventThrottle?: number;
+ };
+ const List = <ItemT extends PickerItem<any>>(
+   {
+@@ -56,6 +57,7 @@ const List = <ItemT extends PickerItem<any>>(
+     onScrollStart,
+     onScrollEnd,
+     contentContainerStyle: contentContainerStyleProp,
++    scrollEventThrottle = 1,
+     ...restProps
+   }: ListProps<ItemT>,
+   forwardedRef: ForwardedRef<ListMethods>,
+@@ -112,7 +114,7 @@ const List = <ItemT extends PickerItem<any>>(
+     <ExtendedAnimatedScrollView
+       showsHorizontalScrollIndicator={false}
+       showsVerticalScrollIndicator={false}
+-      scrollEventThrottle={16}
++      scrollEventThrottle={scrollEventThrottle}
+       scrollEnabled={!readOnly}
+       {...restProps}
+       ref={listRef}
+diff --git a/node_modules/@quidone/react-native-wheel-picker/src/base/picker/Picker.tsx b/node_modules/@quidone/react-native-wheel-picker/src/base/picker/Picker.tsx
+index 7385ef7..95c7779 100644
+--- a/node_modules/@quidone/react-native-wheel-picker/src/base/picker/Picker.tsx
++++ b/node_modules/@quidone/react-native-wheel-picker/src/base/picker/Picker.tsx
+@@ -105,6 +105,7 @@ const Picker = <ItemT extends PickerItem<any>>({
+   itemTextStyle,
+   overlayItemStyle,
+   contentContainerStyle,
++  scrollEventThrottle = 1,
+   _enableSyncScrollAfterScrollEnd = true,
+   _onScrollStart,
+   _onScrollEnd,
+@@ -206,6 +207,7 @@ const Picker = <ItemT extends PickerItem<any>>({
+             onScrollStart: _onScrollStart,
+             onScrollEnd,
+             contentContainerStyle,
++            scrollEventThrottle,
+           })}
+           {renderOverlay &&
+             renderOverlay({
+diff --git a/node_modules/@quidone/react-native-wheel-picker/src/base/picker/hooks/useSyncScrollEffect.ts b/node_modules/@quidone/react-native-wheel-picker/src/base/picker/hooks/useSyncScrollEffect.ts
+index b90bc7b..a5bd56a 100644
+--- a/node_modules/@quidone/react-native-wheel-picker/src/base/picker/hooks/useSyncScrollEffect.ts
++++ b/node_modules/@quidone/react-native-wheel-picker/src/base/picker/hooks/useSyncScrollEffect.ts
+@@ -32,16 +32,27 @@ const useSyncScrollEffect = ({
+       animated: true,
+     });
+   });
+-  const timeoutId = useRef<any>(undefined);
++  const rafId = useRef<number | undefined>(undefined);
+   useEffectWithDynamicDepsLength(() => {
+-    clearTimeout(timeoutId.current);
+-    // fix: loops between two values. We are making a small delay so that the value in other places can be updated for verification.
+-    timeoutId.current = setTimeout(syncScroll, 0);
++    if (rafId.current !== undefined) {
++      cancelAnimationFrame(rafId.current);
++    }
++    // Optimized: Use requestAnimationFrame for immediate, smooth updates instead of setTimeout
++    rafId.current = requestAnimationFrame(() => {
++      syncScroll();
++      rafId.current = undefined;
++    });
+   }, [valueIndex, enableSyncScrollAfterScrollEnd, ...extraValues]);
+   const onScrollEnd = useStableCallback(() => {
+     if (enableSyncScrollAfterScrollEnd && value !== undefined) {
+-      clearTimeout(timeoutId.current);
+-      timeoutId.current = setTimeout(syncScroll, 0);
++      if (rafId.current !== undefined) {
++        cancelAnimationFrame(rafId.current);
++      }
++      // Optimized: Use requestAnimationFrame for immediate, smooth updates
++      rafId.current = requestAnimationFrame(() => {
++        syncScroll();
++        rafId.current = undefined;
++      });
+     }
+   });
+   return {

@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { View, Text, ScrollView } from 'react-native';
+import { View, ScrollView } from 'react-native';
 import { ChevronLeft } from 'lucide-react-native';
 import { useTheme } from '../../../hooks/theme-context';
 import { useRouter } from 'expo-router';
 import { SearchInput } from '../../../components/SearchInput';
 import { CourseCard } from '../../../components/CourseCard';
+import { Text } from '../../../components/ui/Text';
 
 const courses = [
   {
@@ -94,7 +95,7 @@ export default function CourseListPage() {
           <View className="px-6 py-4">
             {/* Header */}
             <View className="p-6 flex-row items-center justify-between w-full">
-              <Text className="text-2xl font-bold" style={{ color: theme === 'dark' ? '#ffffff' : '#111827' }}>
+              <Text weight="bold" className="text-2xl" style={{ color: theme === 'dark' ? '#ffffff' : '#111827' }}>
                 تمام دوره‌ها
               </Text>
               <View
@@ -106,7 +107,7 @@ export default function CourseListPage() {
             </View>
 
             {/* Search */}
-            <View className="mb-4">
+            <View className="mb-2">
               <SearchInput
                 placeholder="جستجو در دوره‌ها..."
                 value={searchQuery}
@@ -115,7 +116,7 @@ export default function CourseListPage() {
             </View>
 
             {/* Filter Chips */}
-            <View className="mb-4">
+            <View className="mb-6 pl-6">
               <ScrollView
                 horizontal
                 showsHorizontalScrollIndicator={false}
@@ -133,7 +134,8 @@ export default function CourseListPage() {
                       onTouchEnd={() => setActiveFilter(chip.id)}
                     >
                       <Text
-                        className={`text-sm font-medium ${
+                        weight="medium"
+                        className={`text-sm ${
                           activeFilter === chip.id
                             ? 'text-white'
                             : theme === 'dark' ? 'text-gray-300' : 'text-gray-700'

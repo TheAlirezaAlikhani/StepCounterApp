@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { View, Text, ScrollView, TouchableOpacity, Animated, ColorSchemeName } from 'react-native';
+import { View, ScrollView, TouchableOpacity, Animated, ColorSchemeName } from 'react-native';
 import { ChevronLeft, ChevronDown } from 'lucide-react-native';
 import { useTheme } from '../../../hooks/theme-context';
 import { useRouter } from 'expo-router';
 import { SearchInput } from '../../../components/SearchInput';
+import { Text } from '../../../components/ui/Text';
 
 const faqItems = [
   {
@@ -76,7 +77,7 @@ function FAQItem({ item, theme }: FAQItemProps) {
         onPress={toggleAccordion}
         className="px-4 py-4 flex-row items-center justify-between"
       >
-        <Text className="font-semibold text-sm text-right flex-1" style={{ color: theme === 'dark' ? '#ffffff' : '#111827' }}>
+        <Text weight="semiBold" className="text-sm  flex-1" style={{ color: theme === 'dark' ? '#ffffff' : '#111827' }}>
           {item.question}
         </Text>
         <Animated.View style={{ transform: [{ rotate: rotateInterpolate }] }}>
@@ -118,7 +119,7 @@ export default function FAQPage() {
       <View className="max-w-md mx-auto flex-1">
         {/* Header */}
         <View className="p-6 flex-row items-center justify-between w-full">
-          <Text className="text-2xl font-bold" style={{ color: theme === 'dark' ? '#ffffff' : '#111827' }}>
+          <Text weight="bold" className="text-2xl" style={{ color: theme === 'dark' ? '#ffffff' : '#111827' }}>
             سوالات متداول
           </Text>
           <TouchableOpacity

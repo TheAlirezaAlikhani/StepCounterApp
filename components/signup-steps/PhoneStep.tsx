@@ -1,10 +1,20 @@
 import React from 'react';
-import { View, Text, TextInput, Pressable } from 'react-native';
-import { ArrowLeft } from 'lucide-react-native';
+import { View, TextInput, ActivityIndicator } from 'react-native';
 import { useTheme } from '../../hooks/theme-context';
 import type { StepComponentProps } from './types';
+import { Text } from '../ui/Text';
+import { NextButton } from './shared/NextButton';
 
-export function PhoneStep({ value, onChange, onEnter, disabled, currentStepId = 4 }: StepComponentProps) {
+export function PhoneStep({ 
+  value, 
+  onChange, 
+  onEnter, 
+  disabled, 
+  isValid, 
+  currentStepId = 4,
+  error,
+  isLoading,
+}: StepComponentProps) {
   const { theme } = useTheme();
   const isDark = theme === 'dark';
 
@@ -28,6 +38,7 @@ export function PhoneStep({ value, onChange, onEnter, disabled, currentStepId = 
     textPrimary: isDark ? '#F8FAFC' : '#0F172A',
     textMuted: isDark ? '#94A3B8' : '#64748B',
     primary: '#A855F7',
+    error: '#EF4444',
     progressBg: isDark ? '#374151' : '#E5E7EB',
   };
 
@@ -35,7 +46,8 @@ export function PhoneStep({ value, onChange, onEnter, disabled, currentStepId = 
     <View className="flex-1 w-full px-6 pt-8">
       <View className="items-center mb-10">
         <Text 
-          className="text-3xl font-bold text-center"
+          weight="bold"
+          className="text-3xl  text-center"
           style={{ color: colors.textPrimary }}
         >
           شماره موبایل خود را وارد کنید
@@ -55,17 +67,38 @@ export function PhoneStep({ value, onChange, onEnter, disabled, currentStepId = 
             direction: 'ltr',
             backgroundColor: colors.background,
             color: colors.textPrimary,
+            borderWidth: error ? 1 : 0,
+            borderColor: error ? colors.error : 'transparent',
           }}
           placeholder="۰۹۱۲ ۳۴۵ ۶۷۸۹"
           placeholderTextColor={colors.textMuted}
           keyboardType="phone-pad"
           value={formatPhoneNumber(value)}
           onChangeText={handleChange}
-          editable={!disabled}
+          editable={!disabled && !isLoading}
           onSubmitEditing={onEnter}
           maxLength={13}
         />
       </View>
+
+      {/* Loading indicator */}
+      {isLoading && (
+        <View className="mt-4 items-center">
+          <ActivityIndicator size="small" color={colors.primary} />
+          <Text className="text-sm mt-2" style={{ color: colors.textMuted }}>
+            در حال ارسال کد...
+          </Text>
+        </View>
+      )}
+
+      {/* Error message */}
+      {error && !isLoading && (
+        <View className="mt-4 items-center">
+          <Text className="text-sm text-center" style={{ color: colors.error }}>
+            {error}
+          </Text>
+        </View>
+      )}
 
       <View className="pt-6 px-4">
         <Text 
@@ -73,11 +106,11 @@ export function PhoneStep({ value, onChange, onEnter, disabled, currentStepId = 
           style={{ color: colors.textMuted }}
         >
           با ادامه، شما با{' '}
-          <Text style={{ color: colors.primary }} className="font-medium">
+          <Text weight="medium" style={{ color: colors.primary }}>
             شرایط خدمات
           </Text>
           {' '}و{' '}
-          <Text style={{ color: colors.primary }} className="font-medium">
+          <Text weight="medium" style={{ color: colors.primary }}>
             سیاست حفظ حریم خصوصی
           </Text>
           {' '}ما موافقت می‌کنید.
@@ -85,24 +118,11 @@ export function PhoneStep({ value, onChange, onEnter, disabled, currentStepId = 
       </View>
 
       {/* Bottom Navigation Area - Only Next Button */}
-      <View className="flex-row items-center justify-end mt-auto mb-24">
-        {/* Next Button - Will be on LEFT in RTL (End) */}
-        <Pressable
-          onPress={onEnter}
-          disabled={disabled}
-          className="w-14 h-14 bg-[#A855F7] rounded-xl items-center justify-center active:opacity-80"
-          style={{
-            shadowColor: "#A855F7",
-            shadowOffset: { width: 0, height: 4 },
-            shadowOpacity: 0.5,
-            shadowRadius: 10,
-            elevation: 8,
-            opacity: disabled ? 0.5 : 1,
-          }}
-        >
-          <ArrowLeft color="white" size={24} strokeWidth={2.5} />
-        </Pressable>
-      </View>
+      <NextButton 
+        onPress={onEnter} 
+        disabled={disabled || !isValid || isLoading} 
+        isLoading={isLoading}
+      />
     </View>
   );
 }

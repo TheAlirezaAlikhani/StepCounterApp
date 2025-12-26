@@ -1,6 +1,7 @@
 import React from 'react';
-import { View, Text, Image, ColorSchemeName } from 'react-native';
+import { View, Image, ColorSchemeName } from 'react-native';
 import { Heart, Clock, Signal, SignalLow, SignalMedium } from 'lucide-react-native';
+import { Text } from './ui/Text';
 
 interface Course {
   id: number;
@@ -44,7 +45,7 @@ export function CourseCard({ course, theme, onToggleFavorite }: CourseCardProps)
             <View className="flex-1 justify-between">
               <View>
                 <View className="flex-row items-center gap-2 mb-1">
-                  <Text className="font-bold text-lg" style={{ color: theme === 'dark' ? '#e5e7eb' : '#1f2937' }}>
+                  <Text weight="bold" className="text-lg" style={{ color: theme === 'dark' ? '#e5e7eb' : '#1f2937' }}>
                     {course.title}
                   </Text>
                   <View
@@ -108,7 +109,7 @@ export function CourseCard({ course, theme, onToggleFavorite }: CourseCardProps)
             </View>
             <View className="flex-1">
               <View className="flex-row items-center gap-2 mb-1">
-                <Text className="font-bold text-lg" style={{ color: theme === 'dark' ? '#e5e7eb' : '#1f2937' }}>
+                <Text weight="bold" className="text-lg" style={{ color: theme === 'dark' ? '#e5e7eb' : '#1f2937' }}>
                   {course.title}
                 </Text>
                 <View

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { Pressable, View, NativeModules, Text, Alert } from 'react-native';
+import { Pressable, View, NativeModules, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { Text } from './ui/Text';
 
 // 🔹 Get native module
 const { StepCounter: StepCounterModule } = NativeModules;
@@ -118,19 +119,19 @@ export const StepCounter: React.FC = () => {
               <Ionicons name="footsteps" size={20} color="#8B5CF6" />
             </View>
             <View className="rounded-full bg-primary/10 px-2 py-0.5">
-              <Text className="text-xs font-bold text-primary">
+              <Text weight="bold" className="text-xs text-primary">
                 {stepProgress.toLocaleString("fa-IR")}%
               </Text>
             </View>
           </View>
           <View className="mt-2 space-y-1">
-            <Text className="text-3xl font-black text-gray-900 dark:text-white leading-tight flex-row items-center">
+            <Text weight="black" className="text-3xl text-gray-900 dark:text-white leading-tight flex-row items-center">
               <Text>{stepCount.toLocaleString("fa-IR")}</Text>
-              <Text className="text-xs font-semibold text-gray-500 dark:text-gray-400 mr-1">
+              <Text weight="semiBold" className="text-xs text-gray-500 dark:text-gray-400 mr-1">
                 / {STEP_GOAL.toLocaleString("fa-IR")}
               </Text>
             </Text>
-            <Text className="text-xs font-medium text-gray-400">قدم‌های امروز</Text>
+            <Text weight="medium" className="text-xs text-gray-400">قدم‌های امروز</Text>
           </View>
           <View className="mt-3 h-2 w-full overflow-hidden rounded-full bg-gray-100 dark:bg-zinc-700">
             <View
@@ -148,19 +149,19 @@ export const StepCounter: React.FC = () => {
               <Ionicons name="flame" size={20} color="#EA580C" />
             </View>
             <View className="rounded-full bg-orange-50 dark:bg-orange-900/30 px-2 py-0.5">
-              <Text className="text-xs font-bold text-orange-600 dark:text-orange-400">
+              <Text weight="bold" className="text-xs text-orange-600 dark:text-orange-400">
                 {calorieProgress.toLocaleString("fa-IR")}%
               </Text>
             </View>
           </View>
           <View className="mt-2 space-y-1">
-            <Text className="text-3xl font-black text-gray-900 dark:text-white leading-tight flex-row items-center">
+            <Text weight="black" className="text-3xl text-gray-900 dark:text-white leading-tight flex-row items-center">
               <Text>{calories.toLocaleString("fa-IR")}</Text>
-              <Text className="text-xs font-semibold text-gray-500 dark:text-gray-400 mr-1">
+              <Text weight="semiBold" className="text-xs text-gray-500 dark:text-gray-400 mr-1">
                 / {CALORIE_GOAL.toLocaleString("fa-IR")}
               </Text>
             </Text>
-            <Text className="text-xs font-medium text-gray-400">کالری سوزانده شده (kcal)</Text>
+            <Text weight="medium" className="text-xs text-gray-400">کالری سوزانده شده (kcal)</Text>
           </View>
           <View className="mt-3 h-2 w-full overflow-hidden rounded-full bg-gray-100 dark:bg-zinc-700">
             <View
@@ -187,14 +188,14 @@ export const StepCounter: React.FC = () => {
             className="bg-green-500 py-3 px-4 rounded-lg items-center active:bg-green-600"
             onPress={startService}
           >
-            <Text className="text-white font-semibold text-base">شروع سرویس پس‌زمینه شمارنده قدم</Text>
+            <Text weight="semiBold" className="text-white text-base">شروع سرویس پس‌زمینه شمارنده قدم</Text>
           </Pressable>
         ) : (
           <Pressable
             className="bg-red-500 py-3 px-4 rounded-lg items-center active:bg-red-600"
             onPress={stopService}
           >
-            <Text className="text-white font-semibold text-base">توقف سرویس پس‌زمینه شمارنده قدم</Text>
+            <Text weight="semiBold" className="text-white text-base">توقف سرویس پس‌زمینه شمارنده قدم</Text>
           </Pressable>
         )}
 
@@ -202,14 +203,14 @@ export const StepCounter: React.FC = () => {
           className="bg-gray-500 py-3 px-4 rounded-lg items-center active:bg-gray-600"
           onPress={resetStepCount}
         >
-          <Text className="text-white font-semibold text-base">بازنشانی شمارنده قدم</Text>
+          <Text weight="semiBold" className="text-white text-base">بازنشانی شمارنده قدم</Text>
         </Pressable>
 
         <Pressable
           className="bg-blue-500 py-3 px-4 rounded-lg items-center active:bg-blue-600"
           onPress={fetchStepCount}
         >
-          <Text className="text-white font-semibold text-base">به‌روزرسانی شمارنده قدم</Text>
+          <Text weight="semiBold" className="text-white text-base">به‌روزرسانی شمارنده قدم</Text>
         </Pressable> */}
       </View>
     </View>

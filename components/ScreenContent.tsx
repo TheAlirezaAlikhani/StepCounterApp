@@ -1,8 +1,9 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { View } from 'react-native';
 
 import { EditScreenInfo } from './EditScreenInfo';
 import { StepCounter } from './OldStepCounter';
+import { Text } from './ui/Text';
 
 type ScreenContentProps = {
   title: string;
@@ -13,7 +14,7 @@ type ScreenContentProps = {
 export const ScreenContent = ({ title, path, children }: ScreenContentProps) => {
   return (
     <View className={styles.container}>
-      <Text className={styles.title}>{title}</Text>
+      <Text weight="bold" className={styles.title}>{title}</Text>
       <View className={styles.separator} />
       {/* <StepCounter className="mb-6" /> */}
       <EditScreenInfo path={path} />
@@ -24,5 +25,5 @@ export const ScreenContent = ({ title, path, children }: ScreenContentProps) => 
 const styles = {
   container: `items-center flex-1 justify-center bg-white`,
   separator: `h-[1px] my-7 w-4/5 bg-gray-200`,
-  title: `text-xl font-bold`,
+  title: `text-xl`,
 };

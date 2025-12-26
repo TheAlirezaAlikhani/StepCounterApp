@@ -1,7 +1,8 @@
 import React from 'react';
-import { View, Text, ScrollView, Alert, Pressable, Image } from 'react-native';
+import { View, ScrollView, Alert, Pressable, Image } from 'react-native';
 import { useTheme } from '../../../hooks/theme-context';
 import { useRouter } from 'expo-router';
+import { useSession } from '../../../context/ctx';
 import {
   User,
   Lock,
@@ -13,10 +14,12 @@ import {
   LogOut,
   ChevronLeft
 } from 'lucide-react-native';
+import { Text } from '../../../components/ui/Text';
 
 export default function MyAccountScreen() {
   const { theme } = useTheme();
   const router = useRouter();
+  const { signOut } = useSession();
   const isDark = theme === 'dark';
 
   // Mock user data - replace with actual user data
@@ -40,8 +43,8 @@ export default function MyAccountScreen() {
           text: "خروج",
           style: "destructive",
           onPress: () => {
-            // Handle logout logic here
-            console.log("User logged out");
+            // Sign out - this clears the session and redirects to auth
+            signOut();
           }
         }
       ]
@@ -108,7 +111,8 @@ export default function MyAccountScreen() {
               </View>
               <View className="flex-1">
                 <Text 
-                  className="text-xl font-bold"
+                  weight="bold"
+                  className="text-xl"
                   style={{ color: colors.textPrimary }}
                 >
                   {user.display_name || "کاربر"}
@@ -130,7 +134,8 @@ export default function MyAccountScreen() {
                 style={{ backgroundColor: colors.surface }}
               >
                 <Text 
-                  className="font-bold mb-4 text-base"
+                  weight="bold"
+                  className="mb-4 text-base"
                   style={{ color: colors.textPrimary }}
                 >
                   اطلاعات کاربری
@@ -143,7 +148,8 @@ export default function MyAccountScreen() {
                     <View className="flex-row items-center gap-4">
                       <User size={24} color={colors.primary} />
                       <Text 
-                        className="font-medium text-sm"
+                        weight="medium"
+                        className="text-sm"
                         style={{ color: colors.textPrimary }}
                       >
                         ویرایش پروفایل
@@ -159,7 +165,8 @@ export default function MyAccountScreen() {
                     <View className="flex-row items-center gap-4">
                       <Lock size={24} color={colors.primary} />
                       <Text 
-                        className="font-medium text-sm"
+                        weight="medium"
+                        className="text-sm"
                         style={{ color: colors.textPrimary }}
                       >
                         تغییر رمز عبور
@@ -176,7 +183,8 @@ export default function MyAccountScreen() {
                 style={{ backgroundColor: colors.surface }}
               >
                 <Text 
-                  className="font-bold mb-4 text-base"
+                  weight="bold"
+                  className="mb-4 text-base"
                   style={{ color: colors.textPrimary }}
                 >
                   مشخصات بدنی
@@ -189,7 +197,8 @@ export default function MyAccountScreen() {
                     <View className="flex-row items-center gap-4">
                       <Dumbbell size={24} color={colors.primary} />
                       <Text 
-                        className="font-medium text-sm"
+                        weight="medium"
+                        className="text-sm"
                         style={{ color: colors.textPrimary }}
                       >
                         اهداف و مشخصات
@@ -206,7 +215,8 @@ export default function MyAccountScreen() {
                 style={{ backgroundColor: colors.surface }}
               >
                 <Text 
-                  className="font-bold mb-4 text-base"
+                  weight="bold"
+                  className="mb-4 text-base"
                   style={{ color: colors.textPrimary }}
                 >
                   برنامه‌ها و پرداخت‌ها
@@ -219,7 +229,8 @@ export default function MyAccountScreen() {
                     <View className="flex-row items-center gap-4">
                       <ClipboardList size={24} color={colors.primary} />
                       <Text 
-                        className="font-medium text-sm"
+                        weight="medium"
+                        className="text-sm"
                         style={{ color: colors.textPrimary }}
                       >
                         برنامه‌های فعال
@@ -235,7 +246,8 @@ export default function MyAccountScreen() {
                     <View className="flex-row items-center gap-4">
                       <CreditCard size={24} color={colors.primary} />
                       <Text 
-                        className="font-medium text-sm"
+                        weight="medium"
+                        className="text-sm"
                         style={{ color: colors.textPrimary }}
                       >
                         تاریخچه پرداخت‌ها
@@ -252,7 +264,8 @@ export default function MyAccountScreen() {
                 style={{ backgroundColor: colors.surface }}
               >
                 <Text 
-                  className="font-bold mb-4 text-base"
+                  weight="bold"
+                  className="mb-4 text-base"
                   style={{ color: colors.textPrimary }}
                 >
                   پشتیبانی
@@ -265,7 +278,8 @@ export default function MyAccountScreen() {
                     <View className="flex-row items-center gap-4">
                       <MessageCircle size={24} color={colors.primary} />
                       <Text 
-                        className="font-medium text-sm"
+                        weight="medium"
+                        className="text-sm"
                         style={{ color: colors.textPrimary }}
                       >
                         ارتباط با ما
@@ -281,7 +295,8 @@ export default function MyAccountScreen() {
                     <View className="flex-row items-center gap-4">
                       <HelpCircle size={24} color={colors.primary} />
                       <Text 
-                        className="font-medium text-sm"
+                        weight="medium"
+                        className="text-sm"
                         style={{ color: colors.textPrimary }}
                       >
                         سوالات متداول
@@ -301,7 +316,7 @@ export default function MyAccountScreen() {
                 android_ripple={{ color: 'rgba(239, 68, 68, 0.1)' }}
               >
                 <LogOut size={24} color="#EF4444" />
-                <Text className="text-red-500 font-bold">
+                <Text weight="bold" className="text-red-500">
                   خروج از حساب
                 </Text>
               </Pressable>

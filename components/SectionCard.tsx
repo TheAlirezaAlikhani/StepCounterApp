@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
+import { Text } from './ui/Text';
 
 interface SectionCardProps {
   title: string;
@@ -9,7 +10,7 @@ interface SectionCardProps {
 export function SectionCard({ title, children }: SectionCardProps) {
   return (
     <View className="bg-gray-50 dark:bg-zinc-800 rounded-xl p-4">
-      <Text className="text-base font-bold text-gray-900 dark:text-white mb-4">
+      <Text weight="bold" className="text-base text-gray-900 dark:text-white mb-4">
         {title}
       </Text>
       <View className="space-y-2">

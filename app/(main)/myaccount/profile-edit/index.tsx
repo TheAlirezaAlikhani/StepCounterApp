@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { View, Text, ScrollView, TouchableOpacity, TextInput, Alert } from 'react-native';
+import { View, ScrollView, TouchableOpacity, TextInput, Alert } from 'react-native';
 import { ChevronLeft, Edit, Mars, Venus } from 'lucide-react-native';
 import { useTheme } from '../../../../hooks/theme-context';
 import { useRouter } from 'expo-router';
+import { Text } from '../../../../components/ui/Text';
 
 export default function ProfileEditPage() {
   const { theme } = useTheme();
@@ -38,7 +39,7 @@ export default function ProfileEditPage() {
       <View className="max-w-md mx-auto flex-1">
         {/* Header */}
         <View className="p-6 flex-row items-center justify-between w-full">
-          <Text className="text-2xl font-bold" style={{ color: theme === 'dark' ? '#ffffff' : '#111827' }}>
+          <Text weight="bold" className="text-2xl" style={{ color: theme === 'dark' ? '#ffffff' : '#111827' }}>
             ویرایش پروفایل
           </Text>
           <TouchableOpacity
@@ -66,7 +67,7 @@ export default function ProfileEditPage() {
                 <Edit size={16} color="#ffffff" />
               </TouchableOpacity>
             </View>
-            <Text className="text-sm font-medium" style={{ color: theme === 'dark' ? '#a855f7' : '#8B5CF6' }}>
+            <Text weight="medium" className="text-sm" style={{ color: theme === 'dark' ? '#a855f7' : '#8B5CF6' }}>
               تغییر تصویر پروفایل
             </Text>
           </View>
@@ -75,7 +76,7 @@ export default function ProfileEditPage() {
           <View className="gap-5">
             {/* Name */}
             <View className="gap-3">
-              <Text className="text-sm font-medium" style={{ color: theme === 'dark' ? '#9ca3af' : '#6b7280' }}>
+              <Text weight="medium" className="text-sm" style={{ color: theme === 'dark' ? '#9ca3af' : '#6b7280' }}>
                 نام
               </Text>
               <TextInput
@@ -92,7 +93,7 @@ export default function ProfileEditPage() {
 
             {/* Gender */}
             <View className="gap-3">
-              <Text className="text-sm font-medium" style={{ color: theme === 'dark' ? '#9ca3af' : '#6b7280' }}>
+              <Text weight="medium" className="text-sm" style={{ color: theme === 'dark' ? '#9ca3af' : '#6b7280' }}>
                 جنسیت
               </Text>
               <View className="flex-row gap-3">
@@ -105,7 +106,7 @@ export default function ProfileEditPage() {
                   }`}
                 >
                   <Venus size={20} color={formData.gender === "female" ? '#8B5CF6' : (theme === 'dark' ? '#9ca3af' : '#6b7280')} />
-                  <Text className={`font-medium ${formData.gender === "female" ? 'text-purple-600' : ''}`}
+                  <Text weight="medium" className={formData.gender === "female" ? 'text-purple-600' : ''}
                         style={{ color: formData.gender === "female" ? '#8B5CF6' : (theme === 'dark' ? '#ffffff' : '#111827') }}>
                     زن
                   </Text>
@@ -119,7 +120,7 @@ export default function ProfileEditPage() {
                   }`}
                 >
                   <Mars size={20} color={formData.gender === "male" ? '#8B5CF6' : (theme === 'dark' ? '#9ca3af' : '#6b7280')} />
-                  <Text className={`font-medium ${formData.gender === "male" ? 'text-purple-600' : ''}`}
+                  <Text weight="medium" className={formData.gender === "male" ? 'text-purple-600' : ''}
                         style={{ color: formData.gender === "male" ? '#8B5CF6' : (theme === 'dark' ? '#ffffff' : '#111827') }}>
                     مرد
                   </Text>
@@ -129,7 +130,7 @@ export default function ProfileEditPage() {
 
             {/* Email */}
             <View className="gap-3">
-              <Text className="text-sm font-medium" style={{ color: theme === 'dark' ? '#9ca3af' : '#6b7280' }}>
+              <Text weight="medium" className="text-sm" style={{ color: theme === 'dark' ? '#9ca3af' : '#6b7280' }}>
                 ایمیل
               </Text>
               <TextInput
@@ -147,7 +148,7 @@ export default function ProfileEditPage() {
 
             {/* Birthdate */}
             <View className="gap-3">
-              <Text className="text-sm font-medium" style={{ color: theme === 'dark' ? '#9ca3af' : '#6b7280' }}>
+              <Text weight="medium" className="text-sm" style={{ color: theme === 'dark' ? '#9ca3af' : '#6b7280' }}>
                 تاریخ تولد
               </Text>
               <TouchableOpacity className="w-full px-4 py-4 rounded-xl border border-gray-200 dark:border-zinc-600 bg-white dark:bg-zinc-800">
@@ -159,7 +160,7 @@ export default function ProfileEditPage() {
 
             {/* Telegram Code */}
             <View className="gap-3">
-              <Text className="text-sm font-medium" style={{ color: theme === 'dark' ? '#9ca3af' : '#6b7280' }}>
+              <Text weight="medium" className="text-sm" style={{ color: theme === 'dark' ? '#9ca3af' : '#6b7280' }}>
                 کد اتصال به ربات تلگرام
               </Text>
               <TextInput
@@ -181,7 +182,7 @@ export default function ProfileEditPage() {
               onPress={handleSubmit}
               className="w-full bg-purple-600 py-4 rounded-xl items-center justify-center"
             >
-              <Text className="text-white font-bold text-base">
+              <Text weight="bold" className="text-white text-base">
                 ذخیره تغییرات
               </Text>
             </TouchableOpacity>

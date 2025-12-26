@@ -1,8 +1,9 @@
 import React from 'react';
-import { View, Text, ScrollView, TouchableOpacity, ColorSchemeName } from 'react-native';
+import { View, ScrollView, TouchableOpacity, ColorSchemeName } from 'react-native';
 import { ChevronLeft, Dumbbell, UtensilsCrossed, Activity } from 'lucide-react-native';
 import { useTheme } from '../../../../hooks/theme-context';
 import { useRouter } from 'expo-router';
+import { Text } from '../../../../components/ui/Text';
 
 const activeCourses = [
   {
@@ -45,7 +46,7 @@ function CourseCard({ course, theme }: CourseCardProps) {
           <IconComponent size={28} color={theme === 'dark' ? '#a855f7' : '#8B5CF6'} />
         </View>
         <View className="flex-1">
-          <Text className="text-lg font-bold" style={{ color: theme === 'dark' ? '#ffffff' : '#111827' }}>
+          <Text weight="bold" className="text-lg" style={{ color: theme === 'dark' ? '#ffffff' : '#111827' }}>
             {course.title}
           </Text>
           <Text className="text-sm" style={{ color: theme === 'dark' ? '#9ca3af' : '#6b7280' }}>
@@ -55,10 +56,10 @@ function CourseCard({ course, theme }: CourseCardProps) {
       </View>
       <View>
         <View className="flex-row justify-between items-center mb-1">
-          <Text className="text-sm font-medium" style={{ color: theme === 'dark' ? '#9ca3af' : '#6b7280' }}>
+          <Text weight="medium" className="text-sm" style={{ color: theme === 'dark' ? '#9ca3af' : '#6b7280' }}>
             پیشرفت
           </Text>
-          <Text className="text-sm font-bold" style={{ color: theme === 'dark' ? '#a855f7' : '#8B5CF6' }}>
+          <Text weight="bold" className="text-sm" style={{ color: theme === 'dark' ? '#a855f7' : '#8B5CF6' }}>
             {course.progress}٪
           </Text>
         </View>
@@ -86,7 +87,7 @@ export default function ActiveCoursesPage() {
       <View className="max-w-md mx-auto flex-1">
         {/* Header */}
         <View className="p-6 flex-row items-center justify-between w-full">
-          <Text className="text-2xl font-bold" style={{ color: theme === 'dark' ? '#ffffff' : '#111827' }}>
+          <Text weight="bold" className="text-2xl" style={{ color: theme === 'dark' ? '#ffffff' : '#111827' }}>
             برنامه‌های فعال
           </Text>
           <TouchableOpacity

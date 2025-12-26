@@ -1,8 +1,9 @@
 import React from 'react';
-import { View, Text, Image, Dimensions, ImageSourcePropType, Pressable } from 'react-native';
+import { View, Image, Dimensions, ImageSourcePropType, Pressable } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { ArrowLeft } from 'lucide-react-native';
 import type { StepComponentProps } from './types';
+import { Text } from '../ui/Text';
 
 const { width, height } = Dimensions.get('window');
 
@@ -74,10 +75,10 @@ export function ImageStep({ stepNumber = 1, onEnter, currentStepId = 1 }: ImageS
             style={{ width: 160, height: 60 }}
             resizeMode="contain"
           />
-          <Text  className="text-white text-2xl  mt-2 font-medium tracking-wide">
+          <Text weight="medium" className="text-white text-2xl  mt-2 tracking-wide">
             !هرقدمت حسابـــه
           </Text>
-          <Text className="text-white/80 text-md mt-1 tracking-widest font-light">
+          <Text weight="light" className="text-white/80 text-md mt-1 tracking-widest">
             Every Move Counts
           </Text>
         </View>
@@ -86,10 +87,10 @@ export function ImageStep({ stepNumber = 1, onEnter, currentStepId = 1 }: ImageS
         <View className="mb-12">
           {/* Text Content */}
           <View className="mb-10">
-            <Text className="text-white text-2xl font-bold mb-4 leading-tight ">
+            <Text weight="bold" className="text-white text-2xl mb-4 leading-tight ">
               {data.title}
             </Text>
-            <Text className="text-gray-300 text-base leading-7 font-light ">
+            <Text weight="light" className="text-gray-300 text-base leading-7 ">
               {data.description}
             </Text>
           </View>

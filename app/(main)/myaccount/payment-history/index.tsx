@@ -1,8 +1,9 @@
 import React from 'react';
-import { View, Text, ScrollView, TouchableOpacity, ColorSchemeName } from 'react-native';
+import { View, ScrollView, TouchableOpacity, ColorSchemeName } from 'react-native';
 import { ChevronLeft, CreditCard, Dumbbell, GraduationCap } from 'lucide-react-native';
 import { useTheme } from '../../../../hooks/theme-context';
 import { useRouter } from 'expo-router';
+import { Text } from '../../../../components/ui/Text';
 
 const paymentData = [
   {
@@ -72,7 +73,7 @@ function PaymentItem({ payment, theme }: PaymentItemProps) {
           <IconComponent size={20} color={theme === 'dark' ? '#a855f7' : '#8B5CF6'} />
         </View>
         <View>
-          <Text className="font-semibold text-sm mb-1" style={{ color: theme === 'dark' ? '#ffffff' : '#111827' }}>
+          <Text weight="semiBold" className="text-sm mb-1" style={{ color: theme === 'dark' ? '#ffffff' : '#111827' }}>
             {payment.title}
           </Text>
           <Text className="text-xs" style={{ color: theme === 'dark' ? '#9ca3af' : '#6b7280' }}>
@@ -81,7 +82,7 @@ function PaymentItem({ payment, theme }: PaymentItemProps) {
         </View>
       </View>
       <View className="flex-row items-center gap-2">
-        <Text className="font-bold text-sm" style={{ color: theme === 'dark' ? '#ffffff' : '#111827' }}>
+        <Text weight="bold" className="text-sm" style={{ color: theme === 'dark' ? '#ffffff' : '#111827' }}>
           {payment.amount}
         </Text>
         <ChevronLeft size={16} color={theme === 'dark' ? '#9ca3af' : '#6b7280'} />
@@ -106,7 +107,7 @@ interface PaymentSectionProps {
 function PaymentSection({ section, theme }: PaymentSectionProps) {
   return (
     <View className="bg-white dark:bg-zinc-800 p-4 rounded-xl mb-4">
-      <Text className="font-bold mb-4 text-base" style={{ color: theme === 'dark' ? '#ffffff' : '#111827' }}>
+      <Text weight="bold" className="mb-4 text-base" style={{ color: theme === 'dark' ? '#ffffff' : '#111827' }}>
         {section.period}
       </Text>
       <View className="divide-y divide-gray-200 dark:divide-zinc-700">
@@ -131,7 +132,7 @@ export default function PaymentHistoryPage() {
       <View className="max-w-md mx-auto flex-1">
         {/* Header */}
         <View className="p-6 flex-row items-center justify-between w-full">
-          <Text className="text-2xl font-bold" style={{ color: theme === 'dark' ? '#ffffff' : '#111827' }}>
+          <Text weight="bold" className="text-2xl" style={{ color: theme === 'dark' ? '#ffffff' : '#111827' }}>
             تاریخچه پرداخت‌ها
           </Text>
           <TouchableOpacity

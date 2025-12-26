@@ -66,7 +66,19 @@ module.exports = {
         xl: 'calc(var(--radius) + 4px)',
       },
       fontFamily: {
-        sans: ['Estedad', 'system-ui', 'sans-serif'],
+        // Base Estedad family (uses Regular weight)
+        estedad: ['Estedad-Regular'],
+        // All weight variants
+        'estedad-black': ['Estedad-Black'],
+        'estedad-extrabold': ['Estedad-ExtraBold'],
+        'estedad-bold': ['Estedad-Bold'],
+        'estedad-semibold': ['Estedad-SemiBold'],
+        'estedad-medium': ['Estedad-Medium'],
+        'estedad-regular': ['Estedad-Regular'],
+        'estedad-light': ['Estedad-Light'],
+        'estedad-extralight': ['Estedad-ExtraLight'],
+        // Default sans font
+        sans: ['Estedad-Regular', 'system-ui', 'sans-serif'],
       },
     },
   },

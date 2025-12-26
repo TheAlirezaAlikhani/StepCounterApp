@@ -1,8 +1,9 @@
 import React from 'react';
-import { View, Text, Pressable } from 'react-native';
-import { ArrowLeft } from 'lucide-react-native';
+import { View, Pressable } from 'react-native';
 import { useTheme } from '../../hooks/theme-context';
 import type { StepComponentProps } from './types';
+import { Text } from '../ui/Text';
+import { NextButton } from './shared/NextButton';
 
 // Pain options using exact API allowed values
 const painOptions = [
@@ -13,7 +14,7 @@ const painOptions = [
   { value: 'درد مچ', label: 'درد مچ' },
 ];
 
-export function PainStep({ value, onChange, disabled, onEnter, currentStepId = 9 }: StepComponentProps) {
+export function PainStep({ value, onChange, disabled, isValid, onEnter, currentStepId = 9 }: StepComponentProps) {
   const { theme } = useTheme();
   const isDark = theme === 'dark';
   
@@ -41,7 +42,8 @@ export function PainStep({ value, onChange, disabled, onEnter, currentStepId = 9
     <View className="flex-1 w-full px-6 pt-8">
       <View className="items-center mb-10">
         <Text 
-          className="text-3xl font-bold text-center"
+          weight="bold"
+          className="text-3xl text-center"
           style={{ color: colors.textPrimary }}
         >
           نقاط درد
@@ -78,7 +80,8 @@ export function PainStep({ value, onChange, disabled, onEnter, currentStepId = 9
               ]}
             >
               <Text
-                className="text-sm font-semibold"
+                weight="semiBold"
+                className="text-sm"
                 style={{
                   color: isSelected ? '#FFFFFF' : colors.textMuted,
                 }}
@@ -91,24 +94,7 @@ export function PainStep({ value, onChange, disabled, onEnter, currentStepId = 9
       </View>
 
       {/* Bottom Navigation Area - Only Next Button */}
-      <View className="flex-row items-center justify-end mt-auto mb-24">
-        {/* Next Button - Will be on LEFT in RTL (End) */}
-        <Pressable
-          onPress={onEnter}
-          disabled={disabled}
-          className="w-14 h-14 bg-[#A855F7] rounded-xl items-center justify-center active:opacity-80"
-          style={{
-            shadowColor: "#A855F7",
-            shadowOffset: { width: 0, height: 4 },
-            shadowOpacity: 0.5,
-            shadowRadius: 10,
-            elevation: 8,
-            opacity: disabled ? 0.5 : 1,
-          }}
-        >
-          <ArrowLeft color="white" size={24} strokeWidth={2.5} />
-        </Pressable>
-      </View>
+      <NextButton onPress={onEnter} disabled={disabled || !isValid} />
     </View>
   );
 }

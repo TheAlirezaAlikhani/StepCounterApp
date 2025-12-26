@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react';
-import { View, Text, ScrollView, Pressable, I18nManager } from 'react-native';
+import { View, ScrollView, Pressable, I18nManager } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { StepCounter } from '../../components/StepCounter';
@@ -10,6 +10,7 @@ import { SimpleCarousel } from '../../components/SimpleCarousel';
 import { SearchInput } from '../../components/SearchInput';
 import { UserHeader } from '../../components/UserHeader';
 import { useTheme } from '../../hooks/theme-context';
+import { Text } from '../../components/ui/Text';
 
 // Ensure RTL is enabled
 if (!I18nManager.isRTL) {
@@ -106,7 +107,7 @@ export default function HomeScreen() {
               onPress={handleCoursesPress}
               android_ripple={{ color: 'rgba(255,255,255,0.3)', borderless: false }}
             >
-              <Text className="text-white font-semibold text-base mr-2">
+              <Text weight="semiBold" className="text-white text-base mr-2">
                 مشاهده تمام دوره‌ها
               </Text>
               <Ionicons name="chevron-forward" size={20} color="#ffffff" />
@@ -123,11 +124,11 @@ export default function HomeScreen() {
           <SimpleCarousel slides={programSlides} />
 
             <View className="mb-4 flex-row items-center justify-between">
-              <Text className="text-xl font-bold text-gray-900 dark:text-white">
+              <Text weight="bold" className="text-xl text-gray-900 dark:text-white">
                 دوره‌های پیشنهادی
               </Text>
               <View className="bg-primary/10 px-3 py-1 rounded-full">
-                <Text className="text-sm font-medium text-primary">نمایش همه</Text>
+                <Text weight="medium" className="text-sm text-primary">نمایش همه</Text>
               </View>
             </View>
           </View>
@@ -154,11 +155,11 @@ export default function HomeScreen() {
           {/* Tips and Recommendations */}
           <View>
             <View className="mb-4 flex-row items-center justify-between">
-              <Text className="text-xl font-bold text-gray-900 dark:text-white">
+              <Text weight="bold" className="text-xl text-gray-900 dark:text-white">
                 نکات و توصیه‌ها
               </Text>
               <View className="bg-primary/10 px-3 py-1 rounded-full">
-                <Text className="text-sm font-medium text-primary">نمایش همه</Text>
+                <Text weight="medium" className="text-sm text-primary">نمایش همه</Text>
               </View>
             </View>
             <View className="space-y-4 gap-3">

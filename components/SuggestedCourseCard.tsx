@@ -1,7 +1,8 @@
 import React from 'react';
-import { View, Text, Pressable, Image } from 'react-native';
+import { View, Pressable, Image } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
+import { Text } from './ui/Text';
 
 interface SuggestedCourseCardProps {
   id: number;
@@ -36,7 +37,7 @@ export function SuggestedCourseCard({
           className="absolute inset-0"
         />
         <View className="absolute bottom-0 p-4">
-          <Text className="text-base font-semibold text-white mb-1" numberOfLines={2}>
+          <Text weight="semiBold" className="text-base text-white mb-1" numberOfLines={2}>
             {title}
           </Text>
           <View className="flex-row items-center gap-1">

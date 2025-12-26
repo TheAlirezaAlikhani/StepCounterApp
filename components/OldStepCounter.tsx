@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Text, View, TouchableOpacity, Alert, AppState } from 'react-native';
+import { View, TouchableOpacity, Alert, AppState } from 'react-native';
 import { Accelerometer } from 'expo-sensors';
+import { Text } from './ui/Text';
 
 interface StepCounterProps {
   className?: string;
@@ -375,7 +376,7 @@ export const StepCounter: React.FC<StepCounterProps> = ({ className }) => {
 
   return (
     <View className={`items-center justify-center p-6 bg-white rounded-lg shadow-md ${className}`}>
-      <Text className="text-2xl font-bold text-gray-800 mb-4">Step Counter</Text>
+      <Text weight="bold" className="text-2xl text-gray-800 mb-4">Step Counter</Text>
 
       {/* Status Information */}
       <View className="mb-4">
@@ -404,7 +405,7 @@ export const StepCounter: React.FC<StepCounterProps> = ({ className }) => {
               </View>
             )}
             {debugInfo.sensorTest !== 'none' && (
-              <Text className="text-xs text-blue-600 font-semibold">
+              <Text weight="semiBold" className="text-xs text-blue-600">
                 Sensor Test: {debugInfo.sensorTest}
               </Text>
             )}
@@ -414,7 +415,7 @@ export const StepCounter: React.FC<StepCounterProps> = ({ className }) => {
 
       {/* Step Count Display */}
       <View className="bg-blue-100 rounded-full w-32 h-32 items-center justify-center mb-6">
-        <Text className="text-4xl font-bold text-blue-600">{stepCount}</Text>
+        <Text weight="bold" className="text-4xl text-blue-600">{stepCount}</Text>
         <Text className="text-sm text-blue-500">steps</Text>
       </View>
 
@@ -426,14 +427,14 @@ export const StepCounter: React.FC<StepCounterProps> = ({ className }) => {
             className="bg-green-500 px-6 py-3 rounded-lg"
             disabled={!isAvailable || !permissionGranted}
           >
-            <Text className="text-white font-semibold">Start</Text>
+            <Text weight="semiBold" className="text-white">Start</Text>
           </TouchableOpacity>
         ) : (
           <TouchableOpacity
             onPress={stopStepCounter}
             className="bg-red-500 px-6 py-3 rounded-lg"
           >
-            <Text className="text-white font-semibold">Stop</Text>
+            <Text weight="semiBold" className="text-white">Stop</Text>
           </TouchableOpacity>
         )}
 
@@ -441,7 +442,7 @@ export const StepCounter: React.FC<StepCounterProps> = ({ className }) => {
           onPress={resetCounter}
           className="bg-gray-500 px-6 py-3 rounded-lg"
         >
-          <Text className="text-white font-semibold">Reset</Text>
+          <Text weight="semiBold" className="text-white">Reset</Text>
         </TouchableOpacity>
       </View>
 
@@ -450,7 +451,7 @@ export const StepCounter: React.FC<StepCounterProps> = ({ className }) => {
         onPress={testSensors}
         className="bg-blue-500 px-6 py-3 rounded-lg mb-4"
       >
-        <Text className="text-white font-semibold">Test All Sensors</Text>
+        <Text weight="semiBold" className="text-white">Test All Sensors</Text>
       </TouchableOpacity>
 
       {/* Instructions */}

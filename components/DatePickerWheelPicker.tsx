@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { View, Text, Pressable } from "react-native";
+import { View, Pressable } from "react-native";
+import { Text } from './ui/Text';
 
 interface WheelPickerProps {
   onDateChange: (date: Date) => void;

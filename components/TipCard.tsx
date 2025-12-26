@@ -1,6 +1,7 @@
 import React from 'react';
-import { View, Text, Pressable, Image } from 'react-native';
+import { View, Pressable, Image } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { Text } from './ui/Text';
 
 interface TipCardProps {
   id: number;
@@ -31,7 +32,8 @@ export function TipCard({
         />
         <View className="flex-1 min-w-0">
           <Text
-            className="text-base font-semibold text-gray-800 dark:text-gray-200"
+            weight="semiBold"
+            className="text-base text-gray-800 dark:text-gray-200"
             numberOfLines={2}
           >
             {title}

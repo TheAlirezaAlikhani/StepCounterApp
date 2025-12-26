@@ -1,15 +1,28 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Pressable } from 'react-native';
+import { View, ActivityIndicator } from 'react-native';
 import { OtpInput } from 'react-native-otp-entry';
-import { ArrowLeft } from 'lucide-react-native';
 import { useTheme } from '../../hooks/theme-context';
 import type { StepComponentProps } from './types';
+import { Text } from '../ui/Text';
+import { NextButton } from './shared/NextButton';
 
-export function OTPStep({ value, onChange, onEnter, disabled, allFormValues, currentStepId = 5 }: StepComponentProps) {
+export function OTPStep({ 
+  value, 
+  onChange, 
+  onEnter, 
+  disabled, 
+  isValid, 
+  allFormValues, 
+  currentStepId = 5,
+  error,
+  isLoading,
+  onResendOTP,
+}: StepComponentProps) {
   const { theme } = useTheme();
   const isDark = theme === 'dark';
   const [countdown, setCountdown] = useState(60);
   const [canResend, setCanResend] = useState(false);
+  const [isResending, setIsResending] = useState(false);
 
   // Get phone number from form values (step id 4)
   const phoneNumber = allFormValues?.[4] || '';
@@ -52,11 +65,21 @@ export function OTPStep({ value, onChange, onEnter, disabled, allFormValues, cur
     return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
   };
 
-  const handleResend = () => {
-    if (!canResend) return;
-    // TODO: Implement resend logic
+  const handleResend = async () => {
+    if (!canResend || isResending) return;
+    
+    setIsResending(true);
+    try {
+      if (onResendOTP) {
+        const success = await onResendOTP();
+        if (success) {
     setCountdown(60);
     setCanResend(false);
+        }
+      }
+    } finally {
+      setIsResending(false);
+    }
   };
 
   const colors = {
@@ -65,6 +88,7 @@ export function OTPStep({ value, onChange, onEnter, disabled, allFormValues, cur
     textMuted: isDark ? '#94A3B8' : '#64748B',
     primary: '#A855F7',
     border: isDark ? '#334155' : '#E2E8F0',
+    error: '#EF4444',
     progressBg: isDark ? '#374151' : '#E5E7EB',
   };
 
@@ -72,7 +96,8 @@ export function OTPStep({ value, onChange, onEnter, disabled, allFormValues, cur
     <View className="flex-1 w-full px-6 pt-8">
       <View className="items-center mb-10">
         <Text 
-          className="text-3xl font-bold text-center"
+          weight="bold"
+          className="text-3xl text-center"
           style={{ color: colors.textPrimary }}
         >
           کد تایید
@@ -87,11 +112,10 @@ export function OTPStep({ value, onChange, onEnter, disabled, allFormValues, cur
 
       <View className="items-center justify-center">
         <OtpInput
-          
           numberOfDigits={5}
-          focusColor={colors.primary}
+          focusColor={error ? colors.error : colors.primary}
           autoFocus={true}
-          disabled={disabled}
+          disabled={disabled || isLoading}
           onTextChange={onChange}
           onFilled={(code) => {
             onChange(code);
@@ -108,10 +132,10 @@ export function OTPStep({ value, onChange, onEnter, disabled, allFormValues, cur
               borderRadius: 12,
               backgroundColor: colors.background,
               borderWidth: 1,
-              borderColor: colors.border,
+              borderColor: error ? colors.error : colors.border,
             },
             focusedPinCodeContainerStyle: {
-              borderColor: colors.primary,
+              borderColor: error ? colors.error : colors.primary,
               borderWidth: 2,
             },
             pinCodeTextStyle: {
@@ -122,44 +146,54 @@ export function OTPStep({ value, onChange, onEnter, disabled, allFormValues, cur
         />
       </View>
 
+      {/* Loading indicator */}
+      {isLoading && (
+        <View className="mt-4 items-center">
+          <ActivityIndicator size="small" color={colors.primary} />
+          <Text className="text-sm mt-2" style={{ color: colors.textMuted }}>
+            در حال تایید...
+          </Text>
+        </View>
+      )}
+
+      {/* Error message */}
+      {error && !isLoading && (
+        <View className="mt-4 items-center">
+          <Text className="text-sm text-center" style={{ color: colors.error }}>
+            {error}
+          </Text>
+        </View>
+      )}
+
       <View className="mt-8 items-center">
         <Text style={{ color: colors.textMuted }} className="text-sm text-center">
           کدی دریافت نکردید؟{' '}
+          {isResending ? (
+            <ActivityIndicator size="small" color={colors.primary} style={{ marginLeft: 8 }} />
+          ) : (
           <Text
             onPress={handleResend}
             style={{ 
               color: canResend ? colors.primary : colors.textMuted,
               opacity: canResend ? 1 : 0.5,
             }}
-            className="font-medium"
+            weight="medium"
           >
             ارسال مجدد کد
           </Text>
-          {countdown > 0 && (
+          )}
+          {countdown > 0 && !isResending && (
             <Text style={{ color: colors.textMuted }}> ({formatCountdown(countdown)})</Text>
           )}
         </Text>
       </View>
 
       {/* Bottom Navigation Area - Only Next Button */}
-      <View className="flex-row items-center justify-end mt-auto mb-24">
-        {/* Next Button - Will be on LEFT in RTL (End) */}
-        <Pressable
-          onPress={onEnter}
-          disabled={disabled}
-          className="w-14 h-14 bg-[#A855F7] rounded-xl items-center justify-center active:opacity-80"
-          style={{
-            shadowColor: "#A855F7",
-            shadowOffset: { width: 0, height: 4 },
-            shadowOpacity: 0.5,
-            shadowRadius: 10,
-            elevation: 8,
-            opacity: disabled ? 0.5 : 1,
-          }}
-        >
-          <ArrowLeft color="white" size={24} strokeWidth={2.5} />
-        </Pressable>
-      </View>
+      <NextButton 
+        onPress={onEnter} 
+        disabled={disabled || !isValid || isLoading} 
+        isLoading={isLoading}
+      />
     </View>
   );
 }
