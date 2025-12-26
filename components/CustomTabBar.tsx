@@ -1,17 +1,17 @@
 import React, { useEffect } from 'react';
-import { View, TouchableOpacity } from 'react-native';
+import { View, TouchableOpacity, Platform } from 'react-native';
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { BlurView } from 'expo-blur';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
-  withSpring,
   withTiming,
 } from 'react-native-reanimated';
 import { User, Home, Dumbbell, LucideIcon } from 'lucide-react-native';
 import { useTheme } from '../hooks/theme-context';
 
-const AnimatedTouchableOpacity = Animated.createAnimatedComponent(TouchableOpacity);
+const AnimatedView = Animated.createAnimatedComponent(View);
 
 interface TabItem {
   route: string;
@@ -38,17 +38,13 @@ function matchesRoute(tabRoute: string, routeName: string): boolean {
 export function CustomTabBar({ state, descriptors, navigation }: BottomTabBarProps) {
   const { theme } = useTheme();
   const insets = useSafeAreaInsets();
-  const containerWidth = useSharedValue(0);
-
   const isDark = theme === 'dark';
 
-  // Clean, minimal dark mode design
-  const backgroundColor = isDark ? '#1A1A1A' : '#404040';
-  const borderColor = isDark ? '#2A2A2A' : '#2e2d2d';
-  const activeColor = isDark ? '#8B5CF6' : '#8B5CF6';
-  const inactiveColor = isDark ? '#71717A' : '#71717A';
-  const activeBackgroundColor = isDark ? '#27272A' : '#343436';
-
+  // Colors matching Next.js design
+  const backgroundColor = isDark ? 'rgba(24, 24, 27, 0.8)' : 'rgba(248, 250, 252, 0.8)'; // bg-[#18181B]/80 or bg-[#F8FAFC]/80
+  const borderColor = isDark ? '#3F3F46' : '#E4E4E7'; // dark:border-zinc-700 or border-gray-200
+  const primaryColor = '#8B5CF6'; // primary purple
+  const inactiveTextColor = isDark ? '#9CA3AF' : '#6B7280'; // text-gray-500 dark:text-gray-400
 
   // Get visible tab routes - show all routes that match our tab definitions
   // Order them according to our tabs array order
@@ -63,79 +59,87 @@ export function CustomTabBar({ state, descriptors, navigation }: BottomTabBarPro
     <View
       style={{
         position: 'absolute',
-        bottom: insets.bottom+10,
-        left: 16,
-        right: 16,
+        bottom: insets.bottom+15,
+        left: 0,
+        right: 0,
         alignItems: 'center',
+        paddingHorizontal: 16,
       }}
     >
-       <View
-         onLayout={(e) => {
-           containerWidth.value = e.nativeEvent.layout.width;
-         }}
-         style={{
-           flexDirection: 'row',
-           backgroundColor,
-           borderRadius: 20,
-           paddingVertical: 10,
-           paddingHorizontal: 10,
-           minHeight: 60,
-           width: '60%',
-           borderWidth: isDark ? 0 : 1,
-           borderColor,
-           
-           boxShadow: isDark ? '0 0 20px 0 rgba(255, 255, 255, 0.15)' : '0 0 30px 0 rgba(0, 0, 0, 0.6)',
-           
-           gap: 8,
-         }}
-       >
+      <View
+        style={{
+          width: '50%',
+          maxWidth: 400, // max-w-sm equivalent
+          borderRadius: 9999, // rounded-full
+          borderTopWidth: 1,
+          borderTopColor: borderColor,
+          shadowColor: '#000000',
+          shadowOffset: { width: 0, height: 4 },
+          shadowOpacity: 0.3,
+          shadowRadius: 12,
+          elevation: 12,
+          overflow: 'visible', // Allow circle to overflow when animating up
+        }}
+      >
+        <BlurView
+          intensity={Platform.OS === 'ios' ? 80 : 0} // Backdrop blur works better on iOS
+          tint={isDark ? 'dark' : 'light'}
+          style={{
+            backgroundColor: backgroundColor,
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-evenly',
+            paddingTop: 4, // Extra padding at top for circle animation
+            paddingBottom: 4,
+            paddingHorizontal: 4,
+            minHeight: 50,
+            borderRadius: 9999, // rounded-full for BlurView
+            overflow: 'visible', // Allow circle to overflow
+          }}
+        >
+          {finalRoutesToShow.map((route) => {
+            const isFocused = state.index === state.routes.findIndex((r) => r.key === route.key);
 
-      {finalRoutesToShow.map((route, index) => {
-          const isFocused = state.index === state.routes.findIndex((r) => r.key === route.key);
+            const onPress = () => {
+              const event = navigation.emit({
+                type: 'tabPress',
+                target: route.key,
+                canPreventDefault: true,
+              });
 
-          const onPress = () => {
-            const event = navigation.emit({
-              type: 'tabPress',
-              target: route.key,
-              canPreventDefault: true,
-            });
+              if (!isFocused && !event.defaultPrevented) {
+                navigation.navigate(route.name, route.params);
+              }
+            };
 
-            if (!isFocused && !event.defaultPrevented) {
-              navigation.navigate(route.name, route.params);
-            }
-          };
+            const onLongPress = () => {
+              navigation.emit({
+                type: 'tabLongPress',
+                target: route.key,
+              });
+            };
 
-          const onLongPress = () => {
-            navigation.emit({
-              type: 'tabLongPress',
-              target: route.key,
-            });
-          };
+            // Match route name (handles nested routes)
+            const tabItem = tabs.find((tab) => matchesRoute(tab.route, route.name));
 
-          // Match route name (handles nested routes)
-          const tabItem = tabs.find((tab) => matchesRoute(tab.route, route.name));
+            if (!tabItem) return null;
 
-          if (!tabItem) return null;
+            const IconComponent = tabItem.icon;
 
-          const IconComponent = tabItem.icon;
-          const iconColor = isFocused ? activeColor : inactiveColor;
-
-          return (
-            <TabButton
-              key={route.key}
-              onPress={onPress}
-              onLongPress={onLongPress}
-              isFocused={isFocused}
-              iconColor={iconColor}
-              activeColor={activeColor}
-              activeBackgroundColor={activeBackgroundColor}
-              isDark={isDark}
-            >
-              <IconComponent size={24} color={iconColor} />
-            </TabButton>
-          );
-        })
-        .filter(Boolean)}
+            return (
+              <TabButton
+                key={route.key}
+                onPress={onPress}
+                onLongPress={onLongPress}
+                isFocused={isFocused}
+                primaryColor={primaryColor}
+                inactiveTextColor={inactiveTextColor}
+              >
+                <IconComponent />
+              </TabButton>
+            );
+          }).filter(Boolean)}
+        </BlurView>
       </View>
     </View>
   );
@@ -146,10 +150,8 @@ interface TabButtonProps {
   onPress: () => void;
   onLongPress: () => void;
   isFocused: boolean;
-  iconColor: string;
-  activeColor: string;
-  activeBackgroundColor: string;
-  isDark: boolean;
+  primaryColor: string;
+  inactiveTextColor: string;
 }
 
 function TabButton({
@@ -157,67 +159,118 @@ function TabButton({
   onPress,
   onLongPress,
   isFocused,
-  iconColor,
-  activeColor,
-  activeBackgroundColor,
-  isDark,
+  primaryColor,
+  inactiveTextColor,
 }: TabButtonProps) {
-  const scale = useSharedValue(1);
-  const opacity = useSharedValue(isFocused ? 1 : 0.6);
+  // Animation values
+  const circleScale = useSharedValue(isFocused ? 1 : 0);
+  const circleTranslateY = useSharedValue(isFocused ? -16 : 0); // -translate-y-4 = -16px
+  const circleOpacity = useSharedValue(isFocused ? 1 : 0);
+  const iconSize = useSharedValue(isFocused ? 28 : 24); // h-7 w-7 = 28px, h-6 w-6 = 24px
+  const iconTranslateY = useSharedValue(isFocused ? -16 : 0); // -translate-y-4 = -16px
+  const iconColor = useSharedValue(isFocused ? 1 : 0); // 1 = white, 0 = gray
 
   useEffect(() => {
-    opacity.value = withTiming(isFocused ? 1 : 0.6, { duration: 200 });
-  }, [isFocused, opacity]);
+    const duration = 300; // duration-300 = 300ms
+    
+    circleScale.value = withTiming(isFocused ? 1 : 0, { duration });
+    circleTranslateY.value = withTiming(isFocused ? -16 : 0, { duration });
+    circleOpacity.value = withTiming(isFocused ? 1 : 0, { duration });
+    iconSize.value = withTiming(isFocused ? 28 : 24, { duration });
+    iconTranslateY.value = withTiming(isFocused ? -16 : 0, { duration });
+    iconColor.value = withTiming(isFocused ? 1 : 0, { duration });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isFocused]);
 
-  const animatedStyle = useAnimatedStyle(() => {
+  // Animated circle background
+  const circleStyle = useAnimatedStyle(() => {
     return {
-      transform: [{ scale: scale.value }],
-      opacity: opacity.value,
+      transform: [
+        { translateY: circleTranslateY.value },
+        { scale: circleScale.value },
+      ],
+      opacity: circleOpacity.value,
     };
   });
 
-  const handlePressIn = () => {
-    scale.value = withSpring(0.9, {
-      damping: 15,
-      stiffness: 300,
-    });
-  };
+  // Animated icon
+  const iconStyle = useAnimatedStyle(() => {
+    return {
+      transform: [{ translateY: iconTranslateY.value }],
+    };
+  });
 
-  const handlePressOut = () => {
-    scale.value = withSpring(1, {
-      damping: 15,
-      stiffness: 300,
-    });
-  };
-
-   const buttonStyle = useAnimatedStyle(() => {
-     return {
-       backgroundColor: isFocused ? activeBackgroundColor : 'transparent',
-       borderRadius: 12,
-       paddingVertical: 10,
-       paddingHorizontal: 16,
-     };
-   });
+  const iconContainerStyle = useAnimatedStyle(() => {
+    return {
+      width: iconSize.value,
+      height: iconSize.value,
+    };
+  });
 
   return (
-    <AnimatedTouchableOpacity
+    <TouchableOpacity
       onPress={onPress}
       onLongPress={onLongPress}
-      onPressIn={handlePressIn}
-      onPressOut={handlePressOut}
-      style={[
-        {
-          flex: 1,
+      activeOpacity={0.7}
+      style={{
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingVertical: 4,
+      }}
+    >
+      <View
+        style={{
           alignItems: 'center',
           justifyContent: 'center',
-        },
-        buttonStyle,
-        animatedStyle,
-      ]}
-      activeOpacity={1}
-    >
-      {children}
-    </AnimatedTouchableOpacity>
+        }}
+      >
+        {/* Animated circular background */}
+        <AnimatedView
+          style={[
+            {
+              position: 'absolute',
+              width: 48, // h-12 w-12 = 48px
+              height: 48,
+              borderRadius: 24,
+              backgroundColor: primaryColor,
+              shadowColor: primaryColor,
+              shadowOffset: { width: 0, height: 4 },
+              shadowOpacity: 0.3,
+              shadowRadius: 8,
+              elevation: 8,
+            },
+            circleStyle,
+          ]}
+        />
+        
+        {/* Animated icon */}
+        <AnimatedView
+          style={[
+            {
+              alignItems: 'center',
+              justifyContent: 'center',
+              zIndex: 10,
+            },
+            iconStyle,
+          ]}
+        >
+          <AnimatedView
+            style={[
+              {
+                alignItems: 'center',
+                justifyContent: 'center',
+              },
+              iconContainerStyle,
+            ]}
+          >
+            {React.cloneElement(children as React.ReactElement, {
+              size: iconSize.value,
+              color: isFocused ? '#FFFFFF' : inactiveTextColor,
+            } as any)}
+          </AnimatedView>
+        </AnimatedView>
+      </View>
+    </TouchableOpacity>
   );
 }
-

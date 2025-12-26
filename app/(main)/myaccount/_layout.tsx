@@ -7,7 +7,7 @@ export default function MyAccountLayout() {
     <Stack
       screenOptions={{
         headerShown: false,
-        animation: 'slide_from_right',
+        animation: 'default',
       }}
     />
   );

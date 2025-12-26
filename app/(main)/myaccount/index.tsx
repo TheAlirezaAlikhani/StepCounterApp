@@ -72,11 +72,11 @@ export default function MyAccountScreen() {
   };
 
   const handleContactUs = () => {
-    router.push('/contact-us');
+    router.push('/myaccount/contact-us');
   };
 
   const handleFAQ = () => {
-    router.push('/faq');
+    router.push('/myaccount/faq');
   };
 
   // Theme colors matching Next.js project

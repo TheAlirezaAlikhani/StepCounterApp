@@ -1,6 +1,6 @@
 import React from 'react';
-import { View } from 'react-native';
 import { Tabs } from 'expo-router';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { useTheme } from '../../hooks/theme-context';
 import { CustomTabBar } from '../../components/CustomTabBar';
 
@@ -10,7 +10,8 @@ export default function MainLayout() {
   const isDark = theme === 'dark';
 
   return (
-    <View
+    <SafeAreaView
+      edges={['top']}
       className={theme === 'dark' ? 'dark' : ''}
       style={{
         flex: 1,
@@ -60,7 +61,7 @@ export default function MainLayout() {
           }}
         />
       </Tabs>
-    </View>
+    </SafeAreaView>
   );
 }
 

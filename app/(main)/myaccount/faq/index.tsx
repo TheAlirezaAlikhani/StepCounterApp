@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { View, ScrollView, TouchableOpacity, Animated, ColorSchemeName } from 'react-native';
 import { ChevronLeft, ChevronDown } from 'lucide-react-native';
-import { useTheme } from '../../../hooks/theme-context';
+import { useTheme } from '../../../../hooks/theme-context';
 import { useRouter } from 'expo-router';
-import { SearchInput } from '../../../components/SearchInput';
-import { Text } from '../../../components/ui/Text';
+import { SearchInput } from '../../../../components/SearchInput';
+import { Text } from '../../../../components/ui/Text';
 
 const faqItems = [
   {

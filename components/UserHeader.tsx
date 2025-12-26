@@ -52,15 +52,7 @@ export function UserHeader({ user, isLoading = false, onNotificationPress, onTog
         </View>
       </View>
       <View className="flex-row gap-2">
-        {onAccountPress && (
-          <Pressable
-            className="p-3 rounded-full bg-gray-100 dark:bg-gray-800 active:bg-gray-200 dark:active:bg-gray-700"
-            onPress={onAccountPress}
-            android_ripple={{ color: 'rgba(0,0,0,0.1)', borderless: true }}
-          >
-            <Ionicons name="person" size={20} color="#4b5563" />
-          </Pressable>
-        )}
+        
 
         {/* {onToggleTheme && (
           <Pressable
@@ -72,21 +64,9 @@ export function UserHeader({ user, isLoading = false, onNotificationPress, onTog
           </Pressable>
         )} */}
 
-<Pressable
-          className="p-3 rounded-full bg-gray-100 dark:bg-gray-800 active:bg-gray-200 dark:active:bg-gray-700"
-          onPress={() => {
-            // Use expo-router or react-navigation to navigate to the myaccount page
-            // Best practice: useLink for expo-router, useNavigation for react-navigation
-            // Here we use dynamic import for expo-router's router for code splitting
-            import('expo-router').then(({ useRouter }) => {
-              router.push('/signup');
-            });
-          }}>
-          <Ionicons name="person-outline" size={20} color="#4b5563" />
-        </Pressable>
 
         <Pressable
-          className="p-3 rounded-full bg-gray-100 dark:bg-gray-800 active:bg-gray-200 dark:active:bg-gray-700"
+          className="p-3 rounded-full bg-none"
           onPress={onNotificationPress}
           android_ripple={{ color: 'rgba(0,0,0,0.1)', borderless: true }}
         >

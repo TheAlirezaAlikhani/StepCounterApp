@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { View, ScrollView, TouchableOpacity, TextInput, Linking, Alert } from 'react-native';
 import { ChevronLeft, Mail, Send } from 'lucide-react-native';
-import { useTheme } from '../../../hooks/theme-context';
+import { useTheme } from '../../../../hooks/theme-context';
 import { useRouter } from 'expo-router';
-import { Text } from '../../../components/ui/Text';
+import { Text } from '../../../../components/ui/Text';
 
 export default function ContactUsPage() {
   const { theme } = useTheme();

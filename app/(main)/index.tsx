@@ -25,9 +25,7 @@ export default function HomeScreen() {
     router.push('/myaccount');
   };
 
-  const handleCoursesPress = () => {
-    router.push('/courses-list');
-  };
+ 
 
   // Mock user data - in real app this would come from context/hooks
   const [user] = useState({
@@ -100,20 +98,7 @@ export default function HomeScreen() {
           {/* Search */}
           <SearchInput />
 
-          {/* Navigation to Courses */}
-          <View className="mb-4">
-            <Pressable
-              className="flex-row items-center justify-center p-3 rounded-xl bg-primary active:bg-primary/80"
-              onPress={handleCoursesPress}
-              android_ripple={{ color: 'rgba(255,255,255,0.3)', borderless: false }}
-            >
-              <Text weight="semiBold" className="text-white text-base mr-2">
-                مشاهده تمام دوره‌ها
-              </Text>
-              <Ionicons name="chevron-forward" size={20} color="#ffffff" />
-            </Pressable>
-          </View>
-
+          
           {/* Step Counter */}
           <View className="pb-10 pt-2">
             <StepCounter />
