@@ -59,7 +59,7 @@ export function CustomTabBar({ state, descriptors, navigation }: BottomTabBarPro
     <View
       style={{
         position: 'absolute',
-        bottom: insets.bottom+15,
+        bottom: insets.bottom-10,
         left: 0,
         right: 0,
         alignItems: 'center',
@@ -82,7 +82,7 @@ export function CustomTabBar({ state, descriptors, navigation }: BottomTabBarPro
         }}
       >
         <BlurView
-          intensity={Platform.OS === 'ios' ? 80 : 0} // Backdrop blur works better on iOS
+          intensity={Platform.OS === 'ios' ? 0 : 0} // Backdrop blur works better on iOS
           tint={isDark ? 'dark' : 'light'}
           style={{
             backgroundColor: backgroundColor,

@@ -1,4 +1,5 @@
 import React from 'react';
+import { View } from 'react-native';
 import { Tabs } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useTheme } from '../../hooks/theme-context';
@@ -12,20 +13,27 @@ export default function MainLayout() {
   return (
     <SafeAreaView
       edges={['top']}
-      className={theme === 'dark' ? 'dark' : ''}
       style={{
         flex: 1,
-        backgroundColor: isDark ? '#18181B' : '#F8FAFC',
+        backgroundColor: 'transparent', // Transparent safe area
       }}
     >
-      <Tabs
-        tabBar={(props) => <CustomTabBar {...props} />}
-        screenOptions={{
-          headerShown: false,
-          tabBarShowLabel: false,
-          animation: 'shift',
+      <View
+        className={theme === 'dark' ? 'dark' : ''}
+        style={{
+          flex: 1,
+          backgroundColor: isDark ? '#18181B' : '#F8FAFC',
+          paddingBottom: 30,
         }}
       >
+        <Tabs
+          tabBar={(props) => <CustomTabBar {...props} />}
+          screenOptions={{
+            headerShown: false,
+            tabBarShowLabel: false,
+            animation: 'shift',
+          }}
+        >
         <Tabs.Screen name="myaccount" />
         <Tabs.Screen name="index" />
         <Tabs.Screen name="courses-list" />
@@ -61,6 +69,7 @@ export default function MainLayout() {
           }}
         />
       </Tabs>
+      </View>
     </SafeAreaView>
   );
 }

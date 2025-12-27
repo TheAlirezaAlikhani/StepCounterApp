@@ -21,7 +21,7 @@ export function SuggestedCourseCard({
 }: SuggestedCourseCardProps) {
   return (
     <Pressable
-      className="shrink-0 w-64 ml-4"
+      className="shrink-0 w-64 mr-4"
       onPress={onPress}
       android_ripple={{ color: 'rgba(0,0,0,0.1)' }}
     >

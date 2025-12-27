@@ -116,13 +116,13 @@ export default function HomeScreen() {
                 <Text weight="medium" className="text-sm text-primary">نمایش همه</Text>
               </View>
             </View>
-          </View>
+          
           {/* Suggested Courses */}
-          <View className="mb-8 -mx-6 ">
+          
             <ScrollView
               horizontal
               showsHorizontalScrollIndicator={false}
-              className="px-6"
+              className=" overflow-visible mb-4"
               contentContainerStyle={{ paddingRight: 6 }}
             >
               {suggestedCourses.map((course) => (
@@ -135,8 +135,7 @@ export default function HomeScreen() {
                 />
               ))}
             </ScrollView>
-          </View>
-        <View className="px-6">
+        
           {/* Tips and Recommendations */}
           <View>
             <View className="mb-4 flex-row items-center justify-between">
