@@ -112,7 +112,7 @@ export default function HomeScreen() {
               <Text weight="bold" className="text-xl text-gray-900 dark:text-white">
                 دوره‌های پیشنهادی
               </Text>
-              <View className="bg-primary/10 px-3 py-1 rounded-full">
+              <View className=" px-3 py-1 rounded-full">
                 <Text weight="medium" className="text-sm text-primary">نمایش همه</Text>
               </View>
             </View>
@@ -143,7 +143,7 @@ export default function HomeScreen() {
               <Text weight="bold" className="text-xl text-gray-900 dark:text-white">
                 نکات و توصیه‌ها
               </Text>
-              <View className="bg-primary/10 px-3 py-1 rounded-full">
+              <View className=" px-3 py-1 rounded-full">
                 <Text weight="medium" className="text-sm text-primary">نمایش همه</Text>
               </View>
             </View>

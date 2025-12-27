@@ -86,7 +86,7 @@ export default function CourseListPage() {
 
   return (
     <View className="flex-1" style={{ backgroundColor: theme === 'dark' ? '#18181B' : '#F8FAFC' }}>
-      <View className="max-w-md mx-auto flex-1">
+      <View className=" flex-1">
         <ScrollView
           className="flex-1"
           showsVerticalScrollIndicator={false}
@@ -94,16 +94,11 @@ export default function CourseListPage() {
         >
           <View className="px-6 py-4">
             {/* Header */}
-            <View className="p-6 flex-row items-center justify-between w-full">
+            <View className=" mb-4 flex-row items-center justify-between w-full">
               <Text weight="bold" className="text-2xl" style={{ color: theme === 'dark' ? '#ffffff' : '#111827' }}>
                 تمام دوره‌ها
               </Text>
-              <View
-                className="p-2 rounded-full bg-gray-100 dark:bg-zinc-800 active:bg-gray-200 dark:active:bg-zinc-700"
-                onTouchEnd={handleBackPress}
-              >
-                <ChevronLeft size={24} color={theme === 'dark' ? '#ffffff' : '#111827'} />
-              </View>
+              
             </View>
 
             {/* Search */}

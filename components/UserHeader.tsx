@@ -1,3 +1,4 @@
+import '../global.css';
 import React from 'react';
 import { View, Pressable, Image } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
